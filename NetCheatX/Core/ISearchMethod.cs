@@ -47,14 +47,14 @@ namespace NetCheatX.Core
         /// <param name="result">List of search results. Populated by the scan method</param>
         /// <param name="args">All arguments in order. Defined by ISearchMethod's Params property</param>
         /// <param name="range">Memory regions to be scanned</param>
-        void FirstScan(out List<Types.SearchResult> result, object[] args, Types.MemoryRange[] range);
+        void FirstScan(out List<ISearchResult> result, object[] args, Types.MemoryRange[] range);
 
         /// <summary>
         /// Next scan
         /// </summary>
         /// <param name="result">List of search results from last scan.</param>
         /// <param name="args">All arguments in order. Defined by ISearchMethod's Params property</param>
-        void NextScan(ref List<Types.SearchResult> result, object[] args);
+        void NextScan(ref List<ISearchResult> result, object[] args);
 
         /// <summary>
         /// Support selected ISearchType

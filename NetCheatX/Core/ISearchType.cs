@@ -54,8 +54,8 @@ namespace NetCheatX.Core
         /// Process SearchResult
         /// </summary>
         /// <param name="columnValues">Array of column values. Populated by method</param>
-        /// <param name="result">SearchResult to be processed</param>
-        void ProcessResult(out string[] columnValues, Types.SearchResult result);
+        /// <param name="result">ISearchResult to be processed</param>
+        void ProcessResult(out string[] columnValues, ISearchResult result);
 
         /// <summary>
         /// Called when the search UI is loaded

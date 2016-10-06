@@ -43,10 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Basic\BasicSearchResult.cs" />
+    <Compile Include="Bitlogic\EndianBitConverter.cs" />
+    <Compile Include="Globals.cs" />
     <Compile Include="ICommunicator.cs" />
     <Compile Include="ICommunicatorHost.cs" />
     <Compile Include="ISearchMethod.cs" />
     <Compile Include="ISearchMethodHost.cs" />
+    <Compile Include="ISearchResult.cs" />
     <Compile Include="ISearchType.cs" />
     <Compile Include="ISearchTypeHost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

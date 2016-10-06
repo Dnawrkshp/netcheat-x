@@ -62,17 +62,6 @@ namespace NetCheatX.Core
         }
 
         /// <summary>
-        /// Search result
-        /// </summary>
-        public struct SearchResult
-        {
-            ///<summary>Memory address of result</summary>
-            public ulong address;
-            ///<summary>Value of result</summary>
-            public byte[] value;
-        }
-
-        /// <summary>
         /// Memory range
         /// </summary>
         public struct MemoryRange
