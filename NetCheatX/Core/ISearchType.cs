@@ -32,6 +32,12 @@ namespace NetCheatX.Core
         string Version { get; }
 
         /// <summary>
+        /// List of all supported platforms in abbreviated format (PS3, PC, iOS, Android)
+        /// Leave null if all are supported
+        /// </summary>
+        string[] SupportedPlatforms { get; }
+
+        /// <summary>
         /// Names of each column
         /// </summary>
         string[] Columns { get; }
@@ -67,11 +73,11 @@ namespace NetCheatX.Core
         /// <summary>
         /// Called when the search UI is loaded
         /// </summary>
-        void Initialize(ISearchTypeHost stHost);
+        void Initialize(IPluginHost host);
 
         /// <summary>
         /// Called when search UI is unloading
         /// </summary>
-        void Dispose(ISearchTypeHost stHost);
+        void Dispose(IPluginHost host);
     }
 }

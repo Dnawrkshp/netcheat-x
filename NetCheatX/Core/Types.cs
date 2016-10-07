@@ -77,7 +77,7 @@ namespace NetCheatX.Core
         /// </summary>
         /// <param name="comHost">UI application ICommunicatorHost instance</param>
         /// <returns></returns>
-        public delegate bool CommunicatorMenuItemCallback(ICommunicatorHost comHost);
+        public delegate bool CommunicatorMenuItemCallback(IPluginHost comHost);
 
         /// <summary>
         /// Callback function blueprint for Communicator plugin window items

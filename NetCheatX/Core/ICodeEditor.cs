@@ -32,13 +32,19 @@ namespace NetCheatX.Core
         string Version { get; }
 
         /// <summary>
+        /// List of all supported platforms in abbreviated format (PS3, PC, iOS, Android)
+        /// Leave null if all are supported
+        /// </summary>
+        string[] SupportedPlatforms { get; }
+
+        /// <summary>
         /// Called on initialization
         /// </summary>
-        void Initialize(ICodeEditorHost ceHost);
+        void Initialize(IPluginHost host);
 
         /// <summary>
         /// Called when disposed
         /// </summary>
-        void Dispose(ICodeEditorHost ceHost);
+        void Dispose(IPluginHost host);
     }
 }

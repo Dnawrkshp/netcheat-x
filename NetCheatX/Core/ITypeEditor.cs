@@ -41,5 +41,15 @@ namespace NetCheatX.Core
         /// </summary>
         /// <param name="control">An uninitialized UserControl</param>
         void GetControl(out System.Windows.Forms.UserControl control);
+
+        /// <summary>
+        /// Called when the search UI is loaded
+        /// </summary>
+        void Initialize(IPluginHost host);
+
+        /// <summary>
+        /// Called when search UI is unloading
+        /// </summary>
+        void Dispose(IPluginHost host);
     }
 }

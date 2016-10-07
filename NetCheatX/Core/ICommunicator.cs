@@ -75,11 +75,11 @@ namespace NetCheatX.Core
         /// <summary>
         /// Called on initialization
         /// </summary>
-        void Initialize(ICommunicatorHost comHost);
+        void Initialize(IPluginHost host);
 
         /// <summary>
         /// Called when disposed
         /// </summary>
-        void Dispose(ICommunicatorHost comHost);
+        void Dispose(IPluginHost host);
     }
 }

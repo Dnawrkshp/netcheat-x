@@ -32,6 +32,12 @@ namespace NetCheatX.Core
         string Version { get; }
 
         /// <summary>
+        /// List of all supported platforms in abbreviated format (PS3, PC, iOS, Android)
+        /// Leave null if all are supported
+        /// </summary>
+        string[] SupportedPlatforms { get; }
+
+        /// <summary>
         /// Whether the ISearchMethod can be used for the first scan, later scans, or all scans
         /// </summary>
         Types.SearchMode Mode { get; }
@@ -66,11 +72,11 @@ namespace NetCheatX.Core
         /// <summary>
         /// Called when the search UI is loaded (not when the scan begins)
         /// </summary>
-        void Initialize(ISearchMethodHost smHost);
+        void Initialize(IPluginHost host);
 
         /// <summary>
         /// Called when search UI is unloading
         /// </summary>
-        void Dispose(ISearchMethodHost smHost);
+        void Dispose(IPluginHost host);
     }
 }
