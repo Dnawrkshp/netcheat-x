@@ -73,11 +73,19 @@ namespace NetCheatX.Core
         }
 
         /// <summary>
-        /// Callback function blueprint for Communicator plugin menu items
+        /// Callback function blueprint for plugins
         /// </summary>
         /// <param name="host">UI application IPluginHost instance</param>
         /// <returns></returns>
         public delegate bool PluginCallback(IPluginHost host);
+
+        /// <summary>
+        /// Callback function blueprint for adding new MDI child form
+        /// </summary>
+        /// <param name="mdiForm">An uninitialized Windows Form</param>
+        /// <param name="host">UI application IPluginHost instance</param>
+        /// <returns></returns>
+        public delegate bool AddMDIFormCallback(out System.Windows.Forms.Form mdiForm, IPluginHost host);
 
         /// <summary>
         /// Callback function blueprint for Code editor plugin AddToCodes context menu items

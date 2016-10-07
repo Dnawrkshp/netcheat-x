@@ -48,6 +48,7 @@
     <Compile Include="Bitlogic\Compare.cs" />
     <Compile Include="Bitlogic\EndianBitConverter.cs" />
     <Compile Include="Globals.cs" />
+    <Compile Include="IAddOn.cs" />
     <Compile Include="ICodeEditor.cs" />
     <Compile Include="ICommunicator.cs" />
     <Compile Include="IPlugin.cs" />
