@@ -15,7 +15,7 @@ namespace NetCheatX.Core
         /// Register search type with Search UI
         /// </summary>
         /// <param name="searchType">Search type to add</param>
-        /// <returns>True if succeeded. False if ISearchMethod with name already exists</returns>
+        /// <returns>True if succeeded. False if ISearchType with name/version already exists</returns>
         bool RegisterSearchType(ISearchType searchType);
     }
 }
