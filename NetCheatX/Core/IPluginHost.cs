@@ -33,7 +33,7 @@ namespace NetCheatX.Core
         /// <param name="description">Information about window. Displayed in a ToolTip</param>
         /// <param name="callback">Function called when drop down item clicked</param>
         /// <returns>True if succeeded. False if invalid uniqueName</returns>
-        bool RegisterWindow(ICodeEditor codeEditor, string uniqueName, string description, Types.CommunicatorMenuWindowCallback callback);
+        bool RegisterWindow(ICodeEditor codeEditor, string uniqueName, string description, Types.PluginCallback callback);
 
         #endregion
 
@@ -47,7 +47,7 @@ namespace NetCheatX.Core
         /// <param name="description">Information about function. Displayed in a ToolTip</param>
         /// <param name="callback">Function called when drop down item clicked</param>
         /// <returns>True if succeeded. False if invalid path</returns>
-        bool RegisterItem(ICommunicator com, string path, string description, Types.CommunicatorMenuItemCallback callback);
+        bool RegisterItem(ICommunicator com, string path, string description, Types.PluginCallback callback);
 
         /// <summary>
         /// Register a function on the toolbar menu
@@ -57,7 +57,7 @@ namespace NetCheatX.Core
         /// <param name="description">Information about function. Displayed in a ToolTip</param>
         /// <param name="callback">Function called when drop down item clicked</param>
         /// <returns>True if succeeded. False if invalid image</returns>
-        bool RegisterItem(ICommunicator com, Image icon, string description, Types.CommunicatorMenuItemCallback callback);
+        bool RegisterItem(ICommunicator com, Image icon, string description, Types.PluginCallback callback);
 
         /// <summary>
         /// Add a new MDI child form to the UI.
@@ -67,7 +67,7 @@ namespace NetCheatX.Core
         /// <param name="description">Information about window. Displayed in a ToolTip</param>
         /// <param name="callback">Function called when drop down item clicked</param>
         /// <returns>True if succeeded. False if invalid uniqueName</returns>
-        bool RegisterWindow(ICommunicator com, string uniqueName, string description, Types.CommunicatorMenuWindowCallback callback);
+        bool RegisterWindow(ICommunicator com, string uniqueName, string description, Types.PluginCallback callback);
 
         #endregion
 
