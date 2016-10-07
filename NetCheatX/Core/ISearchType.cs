@@ -51,11 +51,18 @@ namespace NetCheatX.Core
         byte[] ProcessParam(object value);
 
         /// <summary>
-        /// Process SearchResult
+        /// Process ISearchResult
         /// </summary>
         /// <param name="columnValues">Array of column values. Populated by method</param>
         /// <param name="result">ISearchResult to be processed</param>
         void ProcessResult(out string[] columnValues, ISearchResult result);
+
+        /// <summary>
+        /// Process ISearchResult into NetCheat PS3 legacy code
+        /// </summary>
+        /// <param name="code">Uninitialized string</param>
+        /// <param name="result">ISearchResult to be processed</param>
+        void ResultToLegacyCode(out string code, ISearchResult result);
 
         /// <summary>
         /// Called when the search UI is loaded

@@ -73,11 +73,33 @@ namespace NetCheatX.Core
         }
 
         /// <summary>
-        /// Callback function blueprint for plugin menu items
+        /// Callback function blueprint for Communicator plugin menu items
         /// </summary>
-        /// <param name="comHost">UI application making call</param>
+        /// <param name="comHost">UI application ICommunicatorHost instance</param>
         /// <returns></returns>
-        public delegate bool MenuItemCallback(ICommunicatorHost comHost);
+        public delegate bool CommunicatorMenuItemCallback(ICommunicatorHost comHost);
 
+        /// <summary>
+        /// Callback function blueprint for Communicator plugin window items
+        /// </summary>
+        /// <param name="comHost">UI application ICommunicatorHost instance</param>
+        /// <returns>MDI child form</returns>
+        public delegate System.Windows.Forms.Form CommunicatorMenuWindowCallback(ICommunicatorHost comHost);
+
+        /// <summary>
+        /// Callback function blueprint for Code editor plugin AddToCodes context menu items
+        /// </summary>
+        /// <param name="ceHost">UI application ICodeEditorHost instance</param>
+        /// <param name="type">ISearchType used</param>
+        /// <param name="results">ISearchResult(s) to be added</param>
+        /// <returns></returns>
+        public delegate bool CodeEditorAddCodeCallback(ICodeEditorHost ceHost, ISearchType type, ISearchResult[] results);
+
+        /// <summary>
+        /// Callback function blueprint for Code editor plugin window items
+        /// </summary>
+        /// <param name="ceHost">UI application ICodeEditorHost instance</param>
+        /// <returns>MDI child form</returns>
+        public delegate System.Windows.Forms.Form CodeEditorMenuWindowCallback(ICodeEditorHost ceHost);
     }
 }
