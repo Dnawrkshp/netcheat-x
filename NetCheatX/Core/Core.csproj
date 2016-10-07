@@ -57,6 +57,7 @@
     <Compile Include="ISearchResult.cs" />
     <Compile Include="ISearchType.cs" />
     <Compile Include="ISearchTypeHost.cs" />
+    <Compile Include="ITypeEditor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types.cs" />
   </ItemGroup>

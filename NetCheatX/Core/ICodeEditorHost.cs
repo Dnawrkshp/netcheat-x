@@ -24,11 +24,11 @@ namespace NetCheatX.Core
         /// <summary>
         /// Add a new MDI child form to the UI.
         /// </summary>
-        /// <param name="com">ICommunicator calling function</param>
+        /// <param name="codeEditor">ICommunicator calling function</param>
         /// <param name="uniqueName">Unique name of form. Used when returning to a saved user layout</param>
         /// <param name="description">Information about window. Displayed in a ToolTip</param>
         /// <param name="callback">Function called when drop down item clicked</param>
         /// <returns>True if succeeded. False if invalid uniqueName</returns>
-        bool RegisterWindow(ICommunicator com, string uniqueName, string description, Types.CommunicatorMenuWindowCallback callback);
+        bool RegisterWindow(ICodeEditor codeEditor, string uniqueName, string description, Types.CommunicatorMenuWindowCallback callback);
     }
 }
