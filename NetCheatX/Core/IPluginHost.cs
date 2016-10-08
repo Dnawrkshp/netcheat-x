@@ -26,14 +26,14 @@ namespace NetCheatX.Core
         bool RegisterAddCode(ICodeEditor codeEditor, string description, Types.CodeEditorAddCodeCallback callback);
 
         /// <summary>
-        /// Add a new MDI child form to the UI.
+        /// Register new form to the /Windows/Editor drop down menu
         /// </summary>
         /// <param name="codeEditor">ICommunicator calling function</param>
         /// <param name="uniqueName">Unique name of form. Used when returning to a saved user layout</param>
         /// <param name="description">Information about window. Displayed in a ToolTip</param>
         /// <param name="callback">Function called when drop down item clicked</param>
         /// <returns>True if succeeded. False if invalid uniqueName</returns>
-        bool RegisterWindow(ICodeEditor codeEditor, string uniqueName, string description, Types.PluginCallback callback);
+        bool RegisterWindow(ICodeEditor codeEditor, string uniqueName, string description, Types.AddMDIFormCallback callback);
 
         #endregion
 
@@ -67,7 +67,14 @@ namespace NetCheatX.Core
         /// <param name="description">Information about window. Displayed in a ToolTip</param>
         /// <param name="callback">Function called when drop down item clicked</param>
         /// <returns>True if succeeded. False if invalid uniqueName</returns>
-        bool RegisterWindow(ICommunicator com, string uniqueName, string description, Types.PluginCallback callback);
+        bool RegisterWindow(ICommunicator com, string uniqueName, string description, Types.AddMDIFormCallback callback);
+
+        /// <summary>
+        /// Register class that inherits ICommunicator with UI application
+        /// </summary>
+        /// <param name="com">ICommunicator to register</param>
+        /// <returns></returns>
+        bool RegisterCommunicator(ICommunicator com);
 
         #endregion
 
@@ -134,7 +141,7 @@ namespace NetCheatX.Core
         /// <param name="description">Information about window. Displayed in a ToolTip</param>
         /// <param name="callback">Function called when drop down item clicked</param>
         /// <returns>True if succeeded. False if invalid uniqueName</returns>
-        bool RegisterWindow(IAddOn addOn, string uniqueName, string description, Types.PluginCallback callback);
+        bool RegisterWindow(IAddOn addOn, string uniqueName, string description, Types.AddMDIFormCallback callback);
 
         #endregion
 

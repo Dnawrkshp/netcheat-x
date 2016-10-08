@@ -43,6 +43,16 @@ namespace NetCheatX.Core
         Types.Endian PlatformEndianess { get; }
 
         /// <summary>
+        /// If the target is ready for read/write interaction
+        /// </summary>
+        bool Ready { get; set; }
+
+        /// <summary>
+        /// Event raised when Ready property changes
+        /// </summary>
+        event EventHandler<string> ReadyChanged;
+
+        /// <summary>
         /// Read bytes from memory of target process
         /// Returns read bytes into bytes array
         /// Returns false if failed
@@ -68,9 +78,17 @@ namespace NetCheatX.Core
         /// <summary>
         /// Initializes a new MDI child form identified by param uniqueName
         /// </summary>
+        /// <param name="mdiForm">Uninitialized MDI child form</param>
         /// <param name="uniqueName">MDI child form identifier</param>
-        /// <returns>Initialized MFI child form</returns>
-        System.Windows.Forms.Form InitializeMDIForm(string uniqueName);
+        /// <returns>False if failed</returns>
+        bool InitializeMDIForm(out System.Windows.Forms.Form mdiForm, string uniqueName);
+
+        /// <summary>
+        /// Attempts to connect/attach to the target platform/program with the same parameters used in InitializeMDIForm()
+        /// Called when a new thread needs access to communicator's read/write
+        /// </summary>
+        /// <returns>False if failed</returns>
+        bool Reconnect();
 
         /// <summary>
         /// Called on initialization

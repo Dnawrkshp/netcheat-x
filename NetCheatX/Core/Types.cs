@@ -95,5 +95,6 @@ namespace NetCheatX.Core
         /// <param name="results">ISearchResult(s) to be added</param>
         /// <returns></returns>
         public delegate bool CodeEditorAddCodeCallback(IPluginHost host, ISearchType type, ISearchResult[] results);
+
     }
 }

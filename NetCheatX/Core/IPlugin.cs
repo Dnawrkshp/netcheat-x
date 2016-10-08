@@ -14,12 +14,6 @@ namespace NetCheatX.Core
     public interface IPlugin
     {
         /// <summary>
-        /// List of all supported platforms in abbreviated format (PS3, PC, iOS, Android)
-        /// Leave null if all are supported
-        /// </summary>
-        string[] SupportedPlatforms { get; }
-
-        /// <summary>
         /// Register all plugins with UI
         /// </summary>
         void Initialize(IPluginHost host);
