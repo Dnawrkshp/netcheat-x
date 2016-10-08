@@ -26,6 +26,5 @@ namespace NetCheatX.Core
         /// Used when saving binary information to files
         /// </summary>
         public static Bitlogic.EndianBitConverter DefaultBitConverter { get { return BigEndianBitConverter; } }
-
     }
 }

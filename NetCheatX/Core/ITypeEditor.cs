@@ -43,6 +43,21 @@ namespace NetCheatX.Core
         void GetControl(out System.Windows.Forms.UserControl control);
 
         /// <summary>
+        /// Sets the parameter value of the ITypeEditor's UserControl
+        /// </summary>
+        /// <param name="control">Control to set value of</param>
+        /// <param name="value">Value to set</param>
+        void SetParam(System.Windows.Forms.UserControl control, byte[] value);
+
+        /// <summary>
+        /// Process the parameter
+        /// </summary>
+        /// <param name="control">Control containing parameter to process</param>
+        /// <param name="param">An uninitialized arrry of bytes</param>
+        /// <returns>True if succeeded. False if failed</returns>
+        bool ProcessParam(System.Windows.Forms.UserControl control, out byte[] param);
+
+        /// <summary>
         /// Called when the search UI is loaded
         /// </summary>
         void Initialize(IPluginHost host);

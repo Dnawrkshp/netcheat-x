@@ -12,6 +12,26 @@ namespace NetCheatX.Core
     /// </summary>
     public interface IPluginHost
     {
+        /// <summary>
+        /// Get EndianBitConverter for converting with Platform endianness
+        /// </summary>
+        Bitlogic.EndianBitConverter PlatformBitConverter { get; }
+
+        /// <summary>
+        /// Reads memory at address into bytes via selected ICommunicator
+        /// </summary>
+        /// <param name="address">An unsigned 64-bit number</param>
+        /// <param name="bytes">An array of bytes</param>
+        /// <returns>True if succeeded. False if failed</returns>
+        bool GetMemory(ulong address, ref byte[] bytes);
+
+        /// <summary>
+        /// Writes bytes into memory at address via selected ICommunicator
+        /// </summary>
+        /// <param name="address">An unsigned 64-bit number</param>
+        /// <param name="bytes">An array of bytes</param>
+        /// <returns>True if succeeded. False if failed</returns>
+        bool SetMemory(ulong address, byte[] bytes);
 
         #region ICodeEditor
 
@@ -86,6 +106,14 @@ namespace NetCheatX.Core
         /// <param name="searchMethod">Search method to add</param>
         /// <returns>True if succeeded. False if ISearchMethod with name already exists</returns>
         bool RegisterSearchMethod(ISearchMethod searchMethod);
+
+        /// <summary>
+        /// Set the progress bar on the Search UI
+        /// </summary>
+        /// <param name="searchMethod">Search method</param>
+        /// <param name="progress">Value from 0 to 100</param>
+        /// <param name="description">Description of progress update</param>
+        void SetProgress(ISearchMethod searchMethod, int progress, string description);
 
         #endregion
 

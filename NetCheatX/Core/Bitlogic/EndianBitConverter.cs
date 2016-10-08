@@ -138,6 +138,28 @@ namespace NetCheatX.Core.Bitlogic
         /// <param name="value">The number to convert</param>
         public byte[] GetBytes(ushort value) { return _getBytes(value); }
 
+        /// <summary>
+        /// Returns the specified hexadecimal string representation of a number as an array of bytes
+        /// </summary>
+        /// <param name="value">The string to convert</param>
+        public byte[] GetBytes(string value)
+        {
+            // Truncate any extra characters off length
+            int length = value.Length - (value.Length % 2);
+
+            // Initialize buffer
+            byte[] buffer = new byte[length / 2];
+
+            // Loop through every two characters and convert into byte
+            for (int index = 0; index < length; index += 2)
+                buffer[index / 2] = Convert.ToByte(value[index].ToString() + value[index + 1].ToString());
+
+            // Flip if endianness dictates
+            _flipBytes(ref buffer, 0, buffer.Length);
+
+            return buffer;
+        }
+
         #endregion
 
         #region Convert To

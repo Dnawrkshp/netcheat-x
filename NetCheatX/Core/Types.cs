@@ -59,6 +59,8 @@ namespace NetCheatX.Core
             public Type type;
             ///<summary>If the parameter needs to be processed by an ISearchType first set this true. It wll be passed to your method as a byte array</summary>
             public bool process;
+            /// <summary>Information on what the parameter is used for</summary>
+            public string description;
         }
 
         /// <summary>

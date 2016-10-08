@@ -50,11 +50,14 @@ namespace NetCheatX.Core
         Type ParamType { get; }
 
         /// <summary>
-        /// Process the search parameter
+        /// Whether the data type the ISearchType represents is signed or unsigned
         /// </summary>
-        /// <param name="value">Value inputed. Type is dictated by ParamType</param>
-        /// <returns>value converted to byte array</returns>
-        byte[] ProcessParam(object value);
+        bool Signed { get; }
+
+        /// <summary>
+        /// Alignment of data type the ISearchType represents
+        /// </summary>
+        int Alignment { get; }
 
         /// <summary>
         /// Process ISearchResult
