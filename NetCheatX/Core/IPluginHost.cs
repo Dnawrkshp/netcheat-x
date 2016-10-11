@@ -18,6 +18,11 @@ namespace NetCheatX.Core
         Bitlogic.EndianBitConverter PlatformBitConverter { get; }
 
         /// <summary>
+        /// User entered Author name
+        /// </summary>
+        string AuthorDefault { get; }
+
+        /// <summary>
         /// Reads memory at address into bytes via selected ICommunicator
         /// </summary>
         /// <param name="address">An unsigned 64-bit number</param>
@@ -36,10 +41,17 @@ namespace NetCheatX.Core
         #region ICodeEditor
 
         /// <summary>
+        /// Register code editor with UI
+        /// </summary>
+        /// <param name="codeEditor">ICodeEditor to register</param>
+        /// <returns>True if succeeded. False if ICodeEditor with name/version already exists</returns>
+        bool RegisterCodeEditor(ICodeEditor codeEditor);
+
+        /// <summary>
         /// Register "Add To Codes" function in context menu of relevant UI
         /// Callback is called with code in NetCheat PS3 legacy format
         /// </summary>
-        /// <param name="codeEditor">ICommunicator calling function</param>
+        /// <param name="codeEditor">ICodeEditor calling function</param>
         /// <param name="description">Information about function. Displayed in a ToolTip</param>
         /// <param name="callback">Function called when drop down item clicked</param>
         /// <returns>True if succeeded. False</returns>
@@ -48,7 +60,7 @@ namespace NetCheatX.Core
         /// <summary>
         /// Register new form to the /Windows/Editor drop down menu
         /// </summary>
-        /// <param name="codeEditor">ICommunicator calling function</param>
+        /// <param name="codeEditor">ICodeEditor calling function</param>
         /// <param name="uniqueName">Unique name of form. Used when returning to a saved user layout</param>
         /// <param name="description">Information about window. Displayed in a ToolTip</param>
         /// <param name="callback">Function called when drop down item clicked</param>
@@ -110,7 +122,7 @@ namespace NetCheatX.Core
         /// <summary>
         /// Set the progress bar on the Search UI
         /// </summary>
-        /// <param name="searchMethod">Search method</param>
+        /// <param name="searchMethod">ISearchMethod calling</param>
         /// <param name="progress">Value from 0 to 100</param>
         /// <param name="description">Description of progress update</param>
         void SetProgress(ISearchMethod searchMethod, int progress, string description);
@@ -144,7 +156,7 @@ namespace NetCheatX.Core
         /// <summary>
         /// Register a function on the UI drop down menu
         /// </summary>
-        /// <param name="addOn">ICommunicator calling function</param>
+        /// <param name="addOn">IAddOn calling function</param>
         /// <param name="path">Drop down path. Ex: "Extra/Temperature"</param>
         /// <param name="description">Information about function. Displayed in a ToolTip</param>
         /// <param name="callback">Function called when drop down item clicked</param>
@@ -154,7 +166,7 @@ namespace NetCheatX.Core
         /// <summary>
         /// Register a function on the UI toolbar menu
         /// </summary>
-        /// <param name="addOn">ICommunicator calling function</param>
+        /// <param name="addOn">IAddOn calling function</param>
         /// <param name="icon">Image displayed</param>
         /// <param name="description">Information about function. Displayed in a ToolTip</param>
         /// <param name="callback">Function called when drop down item clicked</param>
@@ -164,7 +176,7 @@ namespace NetCheatX.Core
         /// <summary>
         /// Register new form to the /Windows/ drop down menu
         /// </summary>
-        /// <param name="addOn">ICommunicator calling function</param>
+        /// <param name="addOn">IAddOn calling function</param>
         /// <param name="uniqueName">Unique name of form. Used when returning to a saved user layout</param>
         /// <param name="description">Information about window. Displayed in a ToolTip</param>
         /// <param name="callback">Function called when drop down item clicked</param>

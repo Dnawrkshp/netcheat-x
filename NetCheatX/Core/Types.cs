@@ -95,8 +95,9 @@ namespace NetCheatX.Core
         /// <param name="host">UI application IPluginHost instance</param>
         /// <param name="type">ISearchType used</param>
         /// <param name="results">ISearchResult(s) to be added</param>
+        /// <param name="mdiForm">Window to add code to</param>
         /// <returns></returns>
-        public delegate bool CodeEditorAddCodeCallback(IPluginHost host, ISearchType type, ISearchResult[] results);
+        public delegate bool CodeEditorAddCodeCallback(IPluginHost host, ISearchType type, ISearchResult[] results, System.Windows.Forms.Form mdiForm);
 
     }
 }

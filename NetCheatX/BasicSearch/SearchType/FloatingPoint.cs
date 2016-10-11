@@ -95,7 +95,7 @@ namespace BasicSearch.SearchType
 
         public void ResultToLegacyCode(out string code, ISearchResult result)
         {
-            code = "0 " + result.Address.ToString("X" + (result.Address > uint.MaxValue ? "16" : "8")) + " " + _host.PlatformBitConverter.ToDouble(result.Value, 0).ToString("G");
+            code = "21 " + result.Address.ToString("X" + (result.Address > uint.MaxValue ? "16" : "8")) + " " + _host.PlatformBitConverter.ToDouble(result.Value, 0).ToString("G");
         }
 
         public void Initialize(IPluginHost host)

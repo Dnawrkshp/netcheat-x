@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCCommunicator", "PCCommuni
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicSearch", "BasicSearch\BasicSearch.csproj", "{49F6200D-F648-48C5-B2CD-386F2998364D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegacyCode", "LegacyCode\LegacyCode.csproj", "{FAC877BA-6B01-437A-91EF-222DEAA5D206}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{49F6200D-F648-48C5-B2CD-386F2998364D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49F6200D-F648-48C5-B2CD-386F2998364D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49F6200D-F648-48C5-B2CD-386F2998364D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAC877BA-6B01-437A-91EF-222DEAA5D206}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAC877BA-6B01-437A-91EF-222DEAA5D206}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAC877BA-6B01-437A-91EF-222DEAA5D206}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAC877BA-6B01-437A-91EF-222DEAA5D206}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

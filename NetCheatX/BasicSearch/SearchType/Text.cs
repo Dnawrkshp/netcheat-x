@@ -43,7 +43,7 @@ namespace BasicSearch.SearchType
 
         public void ResultToLegacyCode(out string code, ISearchResult result)
         {
-            code = "0 " + result.Address.ToString("X" + (result.Address > uint.MaxValue ? "16" : "8")) + " " + _host.PlatformBitConverter.ToString(result.Value).Replace("-", "");
+            code = "1 " + result.Address.ToString("X" + (result.Address > uint.MaxValue ? "16" : "8")) + " " + Encoding.UTF8.GetString(result.Value);
         }
 
         public void Initialize(IPluginHost host)
