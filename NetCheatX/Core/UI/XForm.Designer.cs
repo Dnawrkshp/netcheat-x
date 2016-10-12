@@ -1,6 +1,6 @@
-﻿namespace NetCheatX.UI
+﻿namespace NetCheatX.Core.UI
 {
-    partial class Display
+    partial class XForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,20 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // Display
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(488, 458);
-            this.Name = "Display";
-            this.Text = "Form1";
-            this.ResumeLayout(false);
-
+            this.Text = "XForm";
         }
 
         #endregion
     }
 }
-

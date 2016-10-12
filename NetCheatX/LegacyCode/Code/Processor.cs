@@ -34,11 +34,11 @@ namespace LegacyCode.Code
 
         public static ILegacyType GetILegacyType(char c)
         {
-            Type t = LegacyCodeTypes[c];
-
-            // Unsupported code type
-            if (t == null)
+            // Unsupprted code type
+            if (!LegacyCodeTypes.Keys.Contains(c))
                 return null;
+
+            Type t = LegacyCodeTypes[c];
 
             // Create new instance from type
             return (ILegacyType)Activator.CreateInstance(t);

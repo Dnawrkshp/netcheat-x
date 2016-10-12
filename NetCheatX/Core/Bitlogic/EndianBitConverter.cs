@@ -152,7 +152,7 @@ namespace NetCheatX.Core.Bitlogic
 
             // Loop through every two characters and convert into byte
             for (int index = 0; index < length; index += 2)
-                buffer[index / 2] = Convert.ToByte(value[index].ToString() + value[index + 1].ToString());
+                buffer[index / 2] = Convert.ToByte(value[index].ToString() + value[index + 1].ToString(), 16);
 
             // Flip if endianness dictates
             _flipBytes(ref buffer, 0, buffer.Length);

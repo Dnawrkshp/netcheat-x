@@ -8,10 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using NetCheatX.Core.UI;
+using NetCheatX.Core;
 
 namespace PCCommunicator
 {
-    public partial class Init : Form
+    public partial class Init : XForm
     {
         // Save our ICommunicator and our MemMan for later access
         private Communicator _communicator;
@@ -57,6 +59,11 @@ namespace PCCommunicator
                 listProcess.Items.Add(proc.Id.ToString("X8") + "  " + proc.ProcessName);
 
             listProcess.EndUpdate();
+        }
+
+        public override void SetTheme(Types.MetroTheme theme, Color background, Color foreground)
+        {
+            //base.SetTheme(theme, background, foreground);
         }
     }
 }

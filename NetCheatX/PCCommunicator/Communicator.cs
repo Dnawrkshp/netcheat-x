@@ -29,6 +29,8 @@ namespace PCCommunicator
 
         public Types.Endian PlatformEndianess { get; } = (BitConverter.IsLittleEndian ? Types.Endian.LittleEndian : Types.Endian.BigEndian);
 
+        public Types.BitArchitecture PlatformBitArchitecture { get; } = IntPtr.Size == 8 ? Types.BitArchitecture.bit64 : Types.BitArchitecture.bit32;
+
         public string Version { get; } = "1.0";
 
         public bool Ready
@@ -96,17 +98,17 @@ namespace PCCommunicator
             return true;
         }
 
-        public bool InitializeMDIForm(out System.Windows.Forms.Form mdiForm, string uniqueName)
+        public bool InitializeXForm(out NetCheatX.Core.UI.XForm xForm, string uniqueName)
         {
-            // Go through each form ID and set mdiForm to initialized form
+            // Go through each form ID and set xForm to initialized form
             // Return null if invalid uniqueName
             if (uniqueName == form_init_id)
             {
-                mdiForm = new Init(this, _manager);
+                xForm = new Init(this, _manager);
             }
             else
             {
-                mdiForm = null;
+                xForm = null;
                 return false;
             }
 
@@ -134,9 +136,11 @@ namespace PCCommunicator
             // Setup unique names for each form
             form_init_id = Name + " " + Version + " " + form_init_id;
 
+            // Create MemMan instance
+            _manager = new MemMan();
 
             // Register forms with UI
-            host.RegisterWindow(this, form_init_id, "Displays a list of processes to attach to.", AddInitForm);
+            host.RegisterWindow(this, "Attach Process", form_init_id, "Displays a list of processes to attach to.", AddInitForm);
         }
 
         public void Dispose(IPluginHost host)
@@ -146,7 +150,7 @@ namespace PCCommunicator
         }
 
 
-        private bool AddInitForm(out System.Windows.Forms.Form form, IPluginHost host)
+        private bool AddInitForm(out NetCheatX.Core.UI.XForm form, IPluginHost host)
         {
             // Initialize our Attach Process form into form
             form = new Init(this, _manager);

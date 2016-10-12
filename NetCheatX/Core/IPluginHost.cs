@@ -12,6 +12,26 @@ namespace NetCheatX.Core
     /// </summary>
     public interface IPluginHost
     {
+        /// <summary>List of registered AddCode functions</summary>
+        List<Types.AddCodeItem> AddCodeItems { get; }
+        /// <summary>List of registered Windows</summary>
+        List<Types.WindowItem> WindowItems { get; }
+        /// <summary>List of registered menustrip/toolstrip items</summary>
+        List<Types.MenuItem> MenuItems { get; }
+
+        /// <summary>List of registered of ICodeEditors</summary>
+        List<ICodeEditor> CodeEditors { get; }
+        /// <summary>List of registered of ICommunicators</summary>
+        List<ICommunicator> Communicators { get; }
+        /// <summary>List of registered of IAddOns</summary>
+        List<IAddOn> AddOns { get; }
+        /// <summary>List of registered of ITypeEditors</summary>
+        List<ITypeEditor> TypeEditors { get; }
+        /// <summary>List of registered of ISearchMethods</summary>
+        List<ISearchMethod> SearchMethods { get; }
+        /// <summary>List of registered of ISearchTypes</summary>
+        List<ISearchType> SearchTypes { get; }
+
         /// <summary>
         /// Get EndianBitConverter for converting with Platform endianness
         /// </summary>
@@ -58,14 +78,15 @@ namespace NetCheatX.Core
         bool RegisterAddCode(ICodeEditor codeEditor, string description, Types.CodeEditorAddCodeCallback callback);
 
         /// <summary>
-        /// Register new form to the /Windows/Editor drop down menu
+        /// Register new form to the /View/Editor drop down menu
         /// </summary>
         /// <param name="codeEditor">ICodeEditor calling function</param>
+        /// <param name="path">Drop down path. Ex: "Extra/Temperature"</param>
         /// <param name="uniqueName">Unique name of form. Used when returning to a saved user layout</param>
         /// <param name="description">Information about window. Displayed in a ToolTip</param>
         /// <param name="callback">Function called when drop down item clicked</param>
         /// <returns>True if succeeded. False if invalid uniqueName</returns>
-        bool RegisterWindow(ICodeEditor codeEditor, string uniqueName, string description, Types.AddMDIFormCallback callback);
+        bool RegisterWindow(ICodeEditor codeEditor, string path, string uniqueName, string description, Types.AddXFormCallback callback);
 
         #endregion
 
@@ -82,7 +103,7 @@ namespace NetCheatX.Core
         bool RegisterItem(ICommunicator com, string path, string description, Types.PluginCallback callback);
 
         /// <summary>
-        /// Register a function on the toolbar menu
+        /// Register a function on the toolstrip menu
         /// </summary>
         /// <param name="com">ICommunicator calling function</param>
         /// <param name="icon">Image displayed</param>
@@ -92,14 +113,15 @@ namespace NetCheatX.Core
         bool RegisterItem(ICommunicator com, Image icon, string description, Types.PluginCallback callback);
 
         /// <summary>
-        /// Register new form to the /Windows/Communicator drop down menu
+        /// Register new form to the /View/Communicator drop down menu
         /// </summary>
         /// <param name="com">ICommunicator calling function</param>
+        /// <param name="path">Drop down path. Ex: "Extra/Temperature"</param>
         /// <param name="uniqueName">Unique name of form. Used when returning to a saved user layout</param>
         /// <param name="description">Information about window. Displayed in a ToolTip</param>
         /// <param name="callback">Function called when drop down item clicked</param>
         /// <returns>True if succeeded. False if invalid uniqueName</returns>
-        bool RegisterWindow(ICommunicator com, string uniqueName, string description, Types.AddMDIFormCallback callback);
+        bool RegisterWindow(ICommunicator com, string path, string uniqueName, string description, Types.AddXFormCallback callback);
 
         /// <summary>
         /// Register class that inherits ICommunicator with UI application
@@ -164,7 +186,7 @@ namespace NetCheatX.Core
         bool RegisterItem(IAddOn addOn, string path, string description, Types.PluginCallback callback);
 
         /// <summary>
-        /// Register a function on the UI toolbar menu
+        /// Register a function on the UI toolstrip menu
         /// </summary>
         /// <param name="addOn">IAddOn calling function</param>
         /// <param name="icon">Image displayed</param>
@@ -174,14 +196,15 @@ namespace NetCheatX.Core
         bool RegisterItem(IAddOn addOn, Image icon, string description, Types.PluginCallback callback);
 
         /// <summary>
-        /// Register new form to the /Windows/ drop down menu
+        /// Register new form to the /View/ drop down menu
         /// </summary>
         /// <param name="addOn">IAddOn calling function</param>
+        /// <param name="path">Drop down path. Ex: "Extra/Temperature"</param>
         /// <param name="uniqueName">Unique name of form. Used when returning to a saved user layout</param>
         /// <param name="description">Information about window. Displayed in a ToolTip</param>
         /// <param name="callback">Function called when drop down item clicked</param>
         /// <returns>True if succeeded. False if invalid uniqueName</returns>
-        bool RegisterWindow(IAddOn addOn, string uniqueName, string description, Types.AddMDIFormCallback callback);
+        bool RegisterWindow(IAddOn addOn, string path, string uniqueName, string description, Types.AddXFormCallback callback);
 
         #endregion
 

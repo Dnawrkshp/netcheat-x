@@ -8,15 +8,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using NetCheatX.Core;
+using NetCheatX.Core.UI;
 
 namespace LegacyCode.UI
 {
-    public partial class Editor : Form
+    public partial class Editor : XForm
     {
         private IPluginHost _host = null;
         private string _text = null;
 
         private List<Code.Processor> _processors = null;
+
+
+        public override void SetTheme(Types.MetroTheme theme, Color background, Color foreground)
+        {
+            //base.SetTheme(theme, background, foreground);
+        }
 
         public Editor(IPluginHost host, string text)
         {
@@ -60,7 +67,7 @@ namespace LegacyCode.UI
 
         #region Codes List Box
 
-        private void lbCodes_MouseClick(object sender, MouseEventArgs e)
+        private void lbCodes_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {

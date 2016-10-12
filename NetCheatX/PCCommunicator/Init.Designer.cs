@@ -38,7 +38,7 @@
             this.listProcess.FormattingEnabled = true;
             this.listProcess.Location = new System.Drawing.Point(12, 12);
             this.listProcess.Name = "listProcess";
-            this.listProcess.Size = new System.Drawing.Size(249, 212);
+            this.listProcess.Size = new System.Drawing.Size(260, 212);
             this.listProcess.TabIndex = 0;
             // 
             // butAttach
@@ -53,7 +53,7 @@
             // 
             // butRefresh
             // 
-            this.butRefresh.Location = new System.Drawing.Point(139, 230);
+            this.butRefresh.Location = new System.Drawing.Point(150, 230);
             this.butRefresh.Name = "butRefresh";
             this.butRefresh.Size = new System.Drawing.Size(122, 23);
             this.butRefresh.TabIndex = 2;
@@ -69,12 +69,13 @@
             this.Controls.Add(this.butRefresh);
             this.Controls.Add(this.butAttach);
             this.Controls.Add(this.listProcess);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(300, 300);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "Init";
-            this.Text = "Attach to PC Process";
+            this.Text = " ";
             this.ResumeLayout(false);
 
         }

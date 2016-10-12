@@ -8,6 +8,8 @@ namespace NetCheatX.UI
 {
     static class Program
     {
+        public static Plugin.Handler pluginHandler;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -16,7 +18,23 @@ namespace NetCheatX.UI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Display());
+
+            Plugin.Host pluginHost = new Plugin.Host();
+            pluginHandler = new Plugin.Handler();
+
+            pluginHandler.FindPlugins(AppDomain.CurrentDomain.BaseDirectory + "\\Plugins");
+            pluginHost.InitializePlugins();
+
+            Controls.SelectCommunicator select = new Controls.SelectCommunicator(pluginHost, pluginHost.Communicators);
+            select.ShowDialog();
+
+            if (pluginHost.ActiveCommunicator == null)
+                return;
+
+            // Load settings based on selected communicator
+            // Load last layout
+
+            Application.Run(new Controls.Display(pluginHost));
         }
     }
 }

@@ -25,10 +25,10 @@ namespace PCCommunicator
         public static extern int OpenProcess(uint dwDesiredAccess, bool bInheritHandle, int dwProcessId);
 
         [DllImport("kernel32.dll")]
-        public static extern bool ReadProcessMemory(int hProcess, ulong lpBaseAddress, byte[] buffer, int size, int lpNumberOfBytesRead);
+        public static extern bool ReadProcessMemory(int hProcess, int lpBaseAddress, byte[] buffer, int size, int lpNumberOfBytesRead);
 
         [DllImport("kernel32.dll")]
-        public static extern bool WriteProcessMemory(int hProcess, ulong lpBaseAddress, byte[] buffer, int size, int lpNumberOfBytesWritten);
+        public static extern bool WriteProcessMemory(int hProcess, int lpBaseAddress, byte[] buffer, int size, int lpNumberOfBytesWritten);
 
         uint DELETE = 0x00010000;
         uint READ_CONTROL = 0x00020000;
@@ -81,7 +81,7 @@ namespace PCCommunicator
             if (processHandle <= 0)
                 return false;
 
-            return ReadProcessMemory(processHandle, address, bytes, bytes.Length, 0);
+            return ReadProcessMemory(processHandle, (int)address, bytes, bytes.Length, 0);
         }
 
         public bool WriteMemory(ulong address, byte[] processBytes)
@@ -89,7 +89,7 @@ namespace PCCommunicator
             if (processHandle <= 0)
                 return false;
 
-            return WriteProcessMemory(processHandle, address, processBytes, processBytes.Length, 0);
+            return WriteProcessMemory(processHandle, (int)address, processBytes, processBytes.Length, 0);
         }
 
         public bool PauseProcess()

@@ -190,7 +190,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetDir)$(TargetFileName) $(SolutionDir)Configuration\Plugins</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetDir)*.dll $(SolutionDir)Configuration\Plugins
+copy $(TargetDir)*.pdb $(SolutionDir)Configuration\Plugins</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

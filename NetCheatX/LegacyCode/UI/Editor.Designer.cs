@@ -32,6 +32,7 @@
             this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lbCodes = new System.Windows.Forms.ListBox();
+            this.codeEditor1 = new LegacyCode.UI.CodeEditor();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,7 +44,6 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.codeEditor1 = new LegacyCode.UI.CodeEditor();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -76,8 +76,25 @@
             this.lbCodes.Name = "lbCodes";
             this.lbCodes.Size = new System.Drawing.Size(208, 347);
             this.lbCodes.TabIndex = 0;
-            this.lbCodes.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lbCodes_MouseClick);
             this.lbCodes.SelectedIndexChanged += new System.EventHandler(this.lbCodes_SelectedIndexChanged);
+            this.lbCodes.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lbCodes_MouseDown);
+            // 
+            // codeEditor1
+            // 
+            this.codeEditor1.CodeAuthor = "";
+            this.codeEditor1.CodeName = "codeEditor1";
+            this.codeEditor1.CodeText = "fastColoredTextBox1";
+            this.codeEditor1.Constant = false;
+            this.codeEditor1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.codeEditor1.Location = new System.Drawing.Point(0, 0);
+            this.codeEditor1.Name = "codeEditor1";
+            this.codeEditor1.Size = new System.Drawing.Size(416, 347);
+            this.codeEditor1.TabIndex = 0;
+            this.codeEditor1.CodeChanged += new System.EventHandler<string>(this.codeEditor1_CodeChanged);
+            this.codeEditor1.NameChanged += new System.EventHandler<string>(this.codeEditor1_NameChanged);
+            this.codeEditor1.AuthorChanged += new System.EventHandler<string>(this.codeEditor1_AuthorChanged);
+            this.codeEditor1.ConstantChanged += new System.EventHandler<bool>(this.codeEditor1_ConstantChanged);
+            this.codeEditor1.WriteActivated += new System.EventHandler(this.codeEditor1_WriteActivated);
             // 
             // contextMenuStrip1
             // 
@@ -163,29 +180,13 @@
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
-            // codeEditor1
-            // 
-            this.codeEditor1.CodeAuthor = "";
-            this.codeEditor1.CodeName = "codeEditor1";
-            this.codeEditor1.CodeText = "fastColoredTextBox1";
-            this.codeEditor1.Constant = false;
-            this.codeEditor1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.codeEditor1.Location = new System.Drawing.Point(0, 0);
-            this.codeEditor1.Name = "codeEditor1";
-            this.codeEditor1.Size = new System.Drawing.Size(416, 347);
-            this.codeEditor1.TabIndex = 0;
-            this.codeEditor1.CodeChanged += new System.EventHandler<string>(this.codeEditor1_CodeChanged);
-            this.codeEditor1.NameChanged += new System.EventHandler<string>(this.codeEditor1_NameChanged);
-            this.codeEditor1.AuthorChanged += new System.EventHandler<string>(this.codeEditor1_AuthorChanged);
-            this.codeEditor1.ConstantChanged += new System.EventHandler<bool>(this.codeEditor1_ConstantChanged);
-            this.codeEditor1.WriteActivated += new System.EventHandler(this.codeEditor1_WriteActivated);
-            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(628, 347);
             this.Controls.Add(this.splitContainer1);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "Editor";
             this.Text = "Editor";
             this.splitContainer1.Panel1.ResumeLayout(false);

@@ -23,7 +23,7 @@ namespace LegacyCode
         public string Version { get; } = "1.0";
 
 
-        public bool AddForm(out System.Windows.Forms.Form form, IPluginHost host)
+        public bool AddForm(out NetCheatX.Core.UI.XForm form, IPluginHost host)
         {
             form = new UI.Editor(host, Name + " " + Version + " [" + _addFormCount.ToString() + "]");
 
@@ -35,11 +35,11 @@ namespace LegacyCode
 
         public void Initialize(IPluginHost host)
         {
-            host.RegisterWindow(this, Name + " " + Version + " EDITOR", Description, AddForm);
+            host.RegisterWindow(this, this.Name, Name + " " + Version + " EDITOR", Description, AddForm);
             host.RegisterAddCode(this, "Add code to code editor form.", AddToCodes);
         }
 
-        bool AddToCodes(IPluginHost host, ISearchType type, ISearchResult[] results, System.Windows.Forms.Form form)
+        bool AddToCodes(IPluginHost host, ISearchType type, ISearchResult[] results, NetCheatX.Core.UI.XForm form)
         {
             string code;
             List<string> lines = new List<string>();

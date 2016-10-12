@@ -43,6 +43,11 @@ namespace NetCheatX.Core
         Types.Endian PlatformEndianess { get; }
 
         /// <summary>
+        /// The bit architecture of the platform
+        /// </summary>
+        Types.BitArchitecture PlatformBitArchitecture { get; }
+
+        /// <summary>
         /// If the target is ready for read/write interaction
         /// </summary>
         bool Ready { get; set; }
@@ -76,15 +81,15 @@ namespace NetCheatX.Core
         Types.ProcessState GetProcessState();
 
         /// <summary>
-        /// Initializes a new MDI child form identified by param uniqueName
+        /// Initializes a new XForm identified by param uniqueName
         /// </summary>
-        /// <param name="mdiForm">Uninitialized MDI child form</param>
-        /// <param name="uniqueName">MDI child form identifier</param>
+        /// <param name="xForm">Uninitialized XForm</param>
+        /// <param name="uniqueName">XForm identifier</param>
         /// <returns>False if failed</returns>
-        bool InitializeMDIForm(out System.Windows.Forms.Form mdiForm, string uniqueName);
+        bool InitializeXForm(out NetCheatX.Core.UI.XForm xForm, string uniqueName);
 
         /// <summary>
-        /// Attempts to connect/attach to the target platform/program with the same parameters used in InitializeMDIForm()
+        /// Attempts to connect/attach to the target platform/program with the same parameters used in InitializeXForm()
         /// Called when a new thread needs access to communicator's read/write
         /// </summary>
         /// <returns>False if failed</returns>

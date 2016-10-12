@@ -84,7 +84,7 @@
             this.tbCode.Name = "tbCode";
             this.tbCode.Paddings = new System.Windows.Forms.Padding(0);
             this.tbCode.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-            this.tbCode.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("tbCode.ServiceColors")));
+            //this.tbCode.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("tbCode.ServiceColors")));
             this.tbCode.Size = new System.Drawing.Size(374, 199);
             this.tbCode.TabIndex = 2;
             this.tbCode.Text = "fastColoredTextBox1";
