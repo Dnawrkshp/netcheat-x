@@ -9,33 +9,26 @@ namespace NetCheatX.Core
     /// <summary>
     /// Code editor plugin interface
     /// </summary>
-    public interface ICodeEditor
+    public interface ICodeEditor : IPluginExtension
     {
-        /// <summary>
-        /// Name of the ICodeEditor
-        /// </summary>
-        string Name { get; }
-
-        /// <summary>
-        /// Description of the ICodeEditor
-        /// </summary>
-        string Description { get; }
-
-        /// <summary>
-        /// Author(s) of the ICodeEditor
-        /// </summary>
-        string Author { get; }
-
-        /// <summary>
-        /// Current version of the ICodeEditor
-        /// </summary>
-        string Version { get; }
-
         /// <summary>
         /// List of all supported platforms in abbreviated format (PS3, PC, iOS, Android)
         /// Leave null if all are supported
         /// </summary>
         string[] SupportedPlatforms { get; }
+
+        /// <summary>
+        /// Execute all codes on editor form checked constant write
+        /// </summary>
+        void ConstantExecute(IPluginHost host, UI.XForm xForm);
+
+        /// <summary>
+        /// Initializes a new XForm identified by param uniqueName
+        /// </summary>
+        /// <param name="xForm">Uninitialized XForm</param>
+        /// <param name="uniqueName">XForm identifier</param>
+        /// <returns>False if failed</returns>
+        bool InitializeXForm(out NetCheatX.Core.UI.XForm xForm, string uniqueName);
 
         /// <summary>
         /// Called on initialization

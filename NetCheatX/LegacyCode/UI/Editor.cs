@@ -17,13 +17,8 @@ namespace LegacyCode.UI
         private IPluginHost _host = null;
         private string _text = null;
 
+        private bool _isUserInput = true;
         private List<Code.Processor> _processors = null;
-
-
-        public override void SetTheme(Types.MetroTheme theme, Color background, Color foreground)
-        {
-            //base.SetTheme(theme, background, foreground);
-        }
 
         public Editor(IPluginHost host, string text)
         {
@@ -53,6 +48,20 @@ namespace LegacyCode.UI
             }
         }
 
+        // Execute all codes
+        public void Execute(bool constantOnly)
+        {
+            foreach (Code.Processor proc in _processors)
+            {
+                // If constant doesn't matter or if the code is constant
+                if (!constantOnly || proc.Constant)
+                {
+                    proc.Execute();
+                }
+            }
+        }
+
+        // Add code to list
         public void AddCode(string name, string author, string code, bool constant = false)
         {
             Code.Processor processor = new Code.Processor(_host);
@@ -71,13 +80,17 @@ namespace LegacyCode.UI
         {
             if (e.Button == MouseButtons.Right)
             {
-                contextMenuStrip1.Show(e.Location);
+                contextMenuStrip1.Show(PointToScreen(e.Location));
             }
         }
 
         private void lbCodes_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (!_isUserInput)
+                return;
+
             codeEditor1.Enabled = lbCodes.SelectedIndex >= 0;
+            codeEditor1.Visible = codeEditor1.Enabled;
 
             if (codeEditor1.Enabled)
             {
@@ -167,6 +180,7 @@ namespace LegacyCode.UI
 
         #region Code Editor
 
+        // Write code
         private void codeEditor1_WriteActivated(object sender, EventArgs e)
         {
             if (lbCodes.SelectedIndex < 0)
@@ -175,22 +189,45 @@ namespace LegacyCode.UI
             _processors[lbCodes.SelectedIndex].Execute();
         }
 
+        // Update name of code
         private void codeEditor1_NameChanged(object sender, string e)
         {
             if (lbCodes.SelectedIndex < 0)
                 return;
 
             _processors[lbCodes.SelectedIndex].Name = codeEditor1.CodeName;
+
+            _isUserInput = false;
+            lbCodes.BeginUpdate();
+
+            lbCodes.Items[lbCodes.SelectedIndex] = codeEditor1.CodeName;
+            if (codeEditor1.Constant)
+                lbCodes.Items[lbCodes.SelectedIndex] = "+ " + lbCodes.Items[lbCodes.SelectedIndex].ToString();
+
+            lbCodes.EndUpdate();
+            _isUserInput = true;
         }
 
+        // Update constant boolean
         private void codeEditor1_ConstantChanged(object sender, bool e)
         {
             if (lbCodes.SelectedIndex < 0)
                 return;
 
             _processors[lbCodes.SelectedIndex].Constant = codeEditor1.Constant;
+
+            _isUserInput = false;
+            lbCodes.BeginUpdate();
+
+            lbCodes.Items[lbCodes.SelectedIndex] = codeEditor1.CodeName;
+            if (codeEditor1.Constant)
+                lbCodes.Items[lbCodes.SelectedIndex] = "+ " + lbCodes.Items[lbCodes.SelectedIndex].ToString();
+
+            lbCodes.EndUpdate();
+            _isUserInput = true;
         }
 
+        // Update code
         private void codeEditor1_CodeChanged(object sender, string e)
         {
             if (lbCodes.SelectedIndex < 0)
@@ -199,6 +236,7 @@ namespace LegacyCode.UI
             _processors[lbCodes.SelectedIndex].CodeText = codeEditor1.CodeText;
         }
 
+        // Update author of code
         private void codeEditor1_AuthorChanged(object sender, string e)
         {
             if (lbCodes.SelectedIndex < 0)

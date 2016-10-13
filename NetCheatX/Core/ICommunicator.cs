@@ -10,28 +10,8 @@ namespace NetCheatX.Core
     /// Communicator plugin interface
     /// Bridges NetCheat X functionality with a platform
     /// </summary>
-    public interface ICommunicator
+    public interface ICommunicator : IPluginExtension
     {
-        /// <summary>
-        /// Name of the ICommunicator
-        /// </summary>
-        string Name { get; }
-
-        /// <summary>
-        /// Description of the ICommunicator's purpose
-        /// </summary>
-        string Description { get; }
-
-        /// <summary>
-        /// Author(s) of the ICommunicator
-        /// </summary>
-        string Author { get; }
-
-        /// <summary>
-        /// Current version of the ICommunicator
-        /// </summary>
-        string Version { get; }
-
         /// <summary>
         /// Name of platform (abbreviated, i.e. PC, PS3, XBOX, iOS)
         /// </summary>

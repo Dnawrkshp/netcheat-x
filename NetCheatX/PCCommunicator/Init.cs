@@ -42,13 +42,17 @@ namespace PCCommunicator
 
             // Update ICommuncator's Ready property and, if atached, update lastPID
             if (attach)
+            {
                 _communicator.lastPID = pid;
+                _manager.ContinueProcess();
+            }
             _communicator.Ready = attach;
         }
 
         private void butRefresh_Click(object sender, EventArgs e)
         {
-            
+            //_communicator.SetProcessState(Types.ProcessState.Running);
+
             listProcess.BeginUpdate();
 
             listProcess.Items.Clear();
@@ -59,11 +63,6 @@ namespace PCCommunicator
                 listProcess.Items.Add(proc.Id.ToString("X8") + "  " + proc.ProcessName);
 
             listProcess.EndUpdate();
-        }
-
-        public override void SetTheme(Types.MetroTheme theme, Color background, Color foreground)
-        {
-            //base.SetTheme(theme, background, foreground);
         }
     }
 }

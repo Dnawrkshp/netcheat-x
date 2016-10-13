@@ -17,9 +17,14 @@ namespace PCCommunicator
 {
     public class MemMan
     {
+        private bool _isSuspended = false;
+
         public int processHandle = 0;
         public int processId = 0;
+        public Process process = null;
+        
 
+        public event EventHandler ProcessExited;
 
         [DllImport("kernel32.dll")]
         public static extern int OpenProcess(uint dwDesiredAccess, bool bInheritHandle, int dwProcessId);
@@ -73,7 +78,24 @@ namespace PCCommunicator
             processHandle = OpenProcess(PROCESS_ALL_ACCESS, false, pid);
             processId = pid;
 
+            if (processHandle > 0)
+            {
+                if (process != null)
+                    process.Exited -= Process_Exited;
+                process = Process.GetProcessById(processId);
+                process.EnableRaisingEvents = true;
+                process.Exited += Process_Exited;
+
+                _isSuspended = true;
+                process.Suspend();
+            }
+
             return processHandle > 0;
+        }
+
+        private void Process_Exited(object sender, EventArgs e)
+        {
+            ProcessExited?.Invoke(sender, e);
         }
 
         public bool ReadMemory(ulong address, ref byte[] bytes)
@@ -97,7 +119,7 @@ namespace PCCommunicator
             if (processId <= 0)
                 return false;
 
-            var process = Process.GetProcessById(processId);
+            _isSuspended = true;
             process.Suspend();
             return true;
         }
@@ -107,9 +129,8 @@ namespace PCCommunicator
             if (processId <= 0)
                 return false;
 
-            var process = Process.GetProcessById(processId);
+            _isSuspended = false;
             process.Resume();
-
             return true;
         }
 
@@ -130,7 +151,7 @@ namespace PCCommunicator
             if (processId <= 0)
                 return false;
 
-            return Process.GetProcessById(processId).isSuspended();
+            return _isSuspended;
         }
 
         public void KillProcess()
@@ -138,7 +159,7 @@ namespace PCCommunicator
             if (processId <= 0)
                 return;
 
-            Process.GetProcessById(processId).Kill();
+            process.Kill();
         }
 
     }
@@ -169,16 +190,6 @@ namespace PCCommunicator
         static extern uint SuspendThread(IntPtr hThread);
         [DllImport("kernel32.dll")]
         static extern int ResumeThread(IntPtr hThread);
-
-        public static bool isSuspended(this Process process)
-        {
-            bool ret = false;
-            foreach (ProcessThread thread in process.Threads)
-            {
-                ret |= thread.ThreadState == ThreadState.Running;
-            }
-            return !ret;
-        }
 
         public static void Suspend(this Process process)
         {

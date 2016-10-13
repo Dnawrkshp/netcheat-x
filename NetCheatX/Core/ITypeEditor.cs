@@ -9,28 +9,8 @@ namespace NetCheatX.Core
     /// <summary>
     /// Type editor plugin interface
     /// </summary>
-    public interface ITypeEditor
+    public interface ITypeEditor : IPluginExtension
     {
-        /// <summary>
-        /// Name of the ITypeEditor
-        /// </summary>
-        string Name { get; }
-
-        /// <summary>
-        /// Description of the ITypeEditor's purpose
-        /// </summary>
-        string Description { get; }
-
-        /// <summary>
-        /// Author(s) of the ITypeEditor
-        /// </summary>
-        string Author { get; }
-
-        /// <summary>
-        /// Current version of the ITypeEditor
-        /// </summary>
-        string Version { get; }
-
         /// <summary>
         /// Data type the ITypeEditor can edit
         /// </summary>

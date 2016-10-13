@@ -56,6 +56,7 @@
     <Compile Include="ICodeEditor.cs" />
     <Compile Include="ICommunicator.cs" />
     <Compile Include="IPlugin.cs" />
+    <Compile Include="IPluginExtension.cs" />
     <Compile Include="IPluginHost.cs" />
     <Compile Include="ISearchMethod.cs" />
     <Compile Include="ISearchResult.cs" />

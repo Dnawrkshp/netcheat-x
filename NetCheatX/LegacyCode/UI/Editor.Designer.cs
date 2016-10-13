@@ -90,6 +90,7 @@
             this.codeEditor1.Name = "codeEditor1";
             this.codeEditor1.Size = new System.Drawing.Size(416, 347);
             this.codeEditor1.TabIndex = 0;
+            this.codeEditor1.Visible = false;
             this.codeEditor1.CodeChanged += new System.EventHandler<string>(this.codeEditor1_CodeChanged);
             this.codeEditor1.NameChanged += new System.EventHandler<string>(this.codeEditor1_NameChanged);
             this.codeEditor1.AuthorChanged += new System.EventHandler<string>(this.codeEditor1_AuthorChanged);

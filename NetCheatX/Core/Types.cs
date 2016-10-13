@@ -34,19 +34,6 @@ namespace NetCheatX.Core
         }
 
         /// <summary>
-        /// Metro Themes supported by the UI
-        /// </summary>
-        public enum MetroTheme
-        {
-            ///<summary>Light theme</summary>
-            Light,
-            ///<summary>Blue theme</summary>
-            Blue,
-            ///<summary>Dark theme</summary>
-            Dark
-        }
-
-        /// <summary>
         /// Process State
         /// </summary>
         public enum ProcessState
@@ -116,12 +103,8 @@ namespace NetCheatX.Core
         /// </summary>
         public struct WindowItem
         {
-            ///<summary>Source ICodeEditor (if used)</summary>
-            public ICodeEditor codeEditor;
-            ///<summary>Source ICommunicator (if used)</summary>
-            public ICommunicator communicator;
-            ///<summary>Source IAddOn (if used)</summary>
-            public IAddOn addOn;
+            ///<summary>Source plugin extension</summary>
+            public IPluginExtension pluginExtension;
             /// <summary>Path in menustrip</summary>
             public string path;
             ///<summary>Unique name of xform</summary>
@@ -137,10 +120,8 @@ namespace NetCheatX.Core
         /// </summary>
         public struct MenuItem
         {
-            ///<summary>Source IAddOn (if used)</summary>
-            public IAddOn addOn;
-            ///<summary>Source ICommunicator (if used)</summary>
-            public ICommunicator communicator;
+            ///<summary>Source plugin extension</summary>
+            public IPluginExtension pluginExtension;
             ///<summary>Path in menustrip (if used)</summary>
             public string path;
             ///<summary>Description of menu item</summary>

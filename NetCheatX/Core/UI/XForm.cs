@@ -23,23 +23,16 @@ namespace NetCheatX.Core.UI
         public string UniqueName { get; set; }
 
         /// <summary>
+        /// Parent plugin interface that added the XForm
+        /// </summary>
+        public IPluginExtension ParentPlugin { get; set; }
+
+        /// <summary>
         /// Constructor
         /// </summary>
         public XForm()
         {
             InitializeComponent();
-        }
-
-        /// <summary>
-        /// Set the theme of the form and its controls
-        /// </summary>
-        /// <param name="theme">Theme</param>
-        /// <param name="background">Theme default background color</param>
-        /// <param name="foreground">Theme default foreground color</param>
-        public virtual void SetTheme(Types.MetroTheme theme, Color background, Color foreground)
-        {
-            this.BackColor = background;
-            this.ForeColor = foreground;
         }
     }
 }

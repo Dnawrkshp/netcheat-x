@@ -9,33 +9,21 @@ namespace NetCheatX.Core
     /// <summary>
     /// Add on plugin interface
     /// </summary>
-    public interface IAddOn
+    public interface IAddOn : IPluginExtension
     {
-        /// <summary>
-        /// Name of the IAddOn
-        /// </summary>
-        string Name { get; }
-
-        /// <summary>
-        /// Description of the IAddOn
-        /// </summary>
-        string Description { get; }
-
-        /// <summary>
-        /// Author(s) of the IAddOn
-        /// </summary>
-        string Author { get; }
-
-        /// <summary>
-        /// Current version of the IAddOn
-        /// </summary>
-        string Version { get; }
-
         /// <summary>
         /// List of all supported platforms in abbreviated format (PS3, PC, iOS, Android)
         /// Leave null if all are supported
         /// </summary>
         string[] SupportedPlatforms { get; }
+
+        /// <summary>
+        /// Initializes a new XForm identified by param uniqueName
+        /// </summary>
+        /// <param name="xForm">Uninitialized XForm</param>
+        /// <param name="uniqueName">XForm identifier</param>
+        /// <returns>False if failed</returns>
+        bool InitializeXForm(out NetCheatX.Core.UI.XForm xForm, string uniqueName);
 
         /// <summary>
         /// Called on initialization

@@ -57,7 +57,8 @@ namespace NetCheatX.UI.Plugin
                     }
                     catch (Exception e)
                     {
-                        System.Windows.Forms.MessageBox.Show(e.InnerException.Message, "Error Loading DLL from Plugins folder");
+                        Program.logger.LogException(e);
+                        System.Windows.Forms.MessageBox.Show(e.StackTrace + "\r\n\r\n" + e.Message, e.Source);
                     }
                 }
             }
@@ -101,6 +102,8 @@ namespace NetCheatX.UI.Plugin
                             }
                             catch (Exception e)
                             {
+                                Program.logger.LogException(e);
+
                                 // Spit out plugin loading error
                                 System.Windows.Forms.MessageBox.Show(e.Message, e.Source);
                             }

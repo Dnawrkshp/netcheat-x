@@ -26,8 +26,6 @@ namespace NetCheatX.UI.Controls
 
         #endregion
 
-        private List<Core.UI.XForm> _xForms = new List<Core.UI.XForm>();
-
         public Display(Plugin.Host host)
         {
             _host = host;
@@ -41,26 +39,20 @@ namespace NetCheatX.UI.Controls
 
             InitializeComponent();
 
-            // Load existing settings
-            host.PlatformSettings = new Settings.PlatformSetting(host, "C:/Users/Dan/Desktop/ps3.txt", host.ActiveCommunicator.Platform);
+            // Setup dock panel
+            host.XFormDockPanel = dockPanel;
 
-            // Update dock panel theme
-            switch (host.PlatformSettings.Theme)
-            {
-                case Core.Types.MetroTheme.Blue:
-                    dockPanel.Theme = _blueTheme;
-                    break;
-                case Core.Types.MetroTheme.Dark:
-                    dockPanel.Theme = _darkTheme;
-                    break;
-                case Core.Types.MetroTheme.Light:
-                    dockPanel.Theme = _lightTheme;
-                    break;
-            }
+            // Set form Text
+            UpdateTextStatus("Not Ready");
+
+            // Load existing settings
+            host.PlatformSettings = new Settings.PlatformSetting(host, System.IO.Path.Combine(Application.StartupPath, "Settings", host.ActiveCommunicator.Platform), host.ActiveCommunicator.Platform);
 
             // Add host events
             host.MenuItemAdded += Host_MenuItemAdded;
             host.WindowItemAdded += Host_WindowItemAdded;
+
+            host.ActiveCommunicator.ReadyChanged += ActiveCommunicator_ReadyChanged;
 
             // Set toolstrip invisible until it an item is added to it
             toolStrip.Visible = false;
@@ -76,20 +68,29 @@ namespace NetCheatX.UI.Controls
                 host.TriggerMenuItemAdded(item);
         }
 
-        #region Host Events
+        #region Host Event Handlers
+
+        // Update Ready state
+        private void ActiveCommunicator_ReadyChanged(object sender, string e)
+        {
+            Invoke((MethodInvoker)delegate
+            {
+                UpdateTextStatus(e);
+            });
+        }
 
         // Add WindowItem to MenuStrip
         private void Host_WindowItemAdded(object sender, Core.Types.WindowItem e)
         {
-            if (e.callback == null || e.uniqueName == null || e.uniqueName == "")
+            if (e.callback == null || e.uniqueName == null || e.uniqueName == "" || e.pluginExtension == null)
                 return;
 
-            if (e.codeEditor != null) // Add to /View/Editors/
-                AddMenuStripItem("View/Editors/" + e.path, e.uniqueName, e.description, e.callback);
-            else if (e.addOn != null) // Add to /View/
-                AddMenuStripItem("View/" + e.path, e.uniqueName, e.description, e.callback);
-            else if (e.communicator != null) // Add to /View/Communicator
-                AddMenuStripItem("View/Communicator/" + e.path, e.uniqueName, e.description, e.callback);
+            if (e.pluginExtension is Core.ICodeEditor) // Add to /View/Editors/
+                AddMenuStripItem("View/Editors/" + e.path, e.uniqueName, e.description, e.pluginExtension, e.callback);
+            else if (e.pluginExtension is Core.IAddOn) // Add to /View/
+                AddMenuStripItem("View/" + e.path, e.uniqueName, e.description, e.pluginExtension, e.callback);
+            else if (e.pluginExtension is Core.ICommunicator) // Add to /View/Communicator
+                AddMenuStripItem("View/Communicator/" + e.path, e.uniqueName, e.description, e.pluginExtension, e.callback);
         }
 
         private void Host_MenuItemAdded(object sender, Core.Types.MenuItem e)
@@ -97,7 +98,7 @@ namespace NetCheatX.UI.Controls
             
         }
 
-        private void AddMenuStripItem(string path, string uniqueName, string tooltip, NetCheatX.Core.Types.AddXFormCallback callback)
+        private void AddMenuStripItem(string path, string uniqueName, string tooltip, Core.IPluginExtension parentPlugin, NetCheatX.Core.Types.AddXFormCallback callback)
         {
             string[] pathParts = path.Split(new char[] { '/', '\\' }, StringSplitOptions.RemoveEmptyEntries);
             int partIndex = 1;
@@ -136,9 +137,9 @@ namespace NetCheatX.UI.Controls
                     if (xform != null)
                     {
                         xform.UniqueName = uniqueName;
-                        _xForms.Add(xform);
-                        UpdateTheme(_host.PlatformSettings.Theme, xform);
-                        xform.Show(dockPanel);
+                        xform.ParentPlugin = parentPlugin;
+                        _host.XForms.Add(xform);
+                        xform.Show(_host.XFormDockPanel);
                     }
                 }
             };
@@ -175,39 +176,23 @@ namespace NetCheatX.UI.Controls
 
         #endregion
 
-        #region Theme
+        #region Other Event Handlers
 
-        // Update theme of all or specific docked XForm(s)
-        private void UpdateTheme(Core.Types.MetroTheme theme, Core.UI.XForm xform = null)
+        private void aboutNetCheatXToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Color back = Color.Black, fore = Color.Black;
+            
+        }
 
-            switch (theme)
-            {
-                case Core.Types.MetroTheme.Blue:
-                    back = _blueTheme.ColorPalette.MainWindowActive.Background;
-                    fore = _blueTheme.ColorPalette.TabUnselected.Text;
-                    break;
-                case Core.Types.MetroTheme.Dark:
-                    back = _darkTheme.ColorPalette.MainWindowActive.Background;
-                    fore = _darkTheme.ColorPalette.TabUnselected.Text;
-                    break;
-                case Core.Types.MetroTheme.Light:
-                    back = _lightTheme.ColorPalette.MainWindowActive.Background;
-                    fore = _lightTheme.ColorPalette.TabUnselected.Text;
-                    break;
-            }
-
-            if (xform != null)
-                xform.SetTheme(_host.PlatformSettings.Theme, back, fore);
-            else  if (_xForms != null)
-            {
-                foreach (Core.UI.XForm xf in _xForms)
-                    xf.SetTheme(_host.PlatformSettings.Theme, back, fore);
-            }
+        private void Display_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _host.Dispose();
         }
 
         #endregion
 
+        private void UpdateTextStatus(string status)
+        {
+            Text = "NetCheatX " + _host.ActiveCommunicator.Platform + " [" + status + "]";
+        }
     }
 }

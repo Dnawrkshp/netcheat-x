@@ -56,10 +56,12 @@ namespace NetCheatX.UI.Settings
         public Dictionary<Type, NetCheatX.Core.ITypeEditor> DefaultTypeEditor;
         public string Platform = null;
         public string Author = null;
-        public Core.Types.MetroTheme Theme;
 
-        public PlatformSetting(Plugin.Host host, string loadPath, string platformName)
+        public PlatformSetting(Plugin.Host host, string path, string platformName)
         {
+            string iniPath = path + ".ini";
+            string xmlPath = path + ".xml";
+
             if (host == null)
                 return;
 
@@ -67,7 +69,6 @@ namespace NetCheatX.UI.Settings
             _host = host;
 
             Platform = platformName;
-            Theme = Core.Types.MetroTheme.Blue;
 
             Author = "";
             DocumentLayout = new Settings.PlatformSetting.Document();
@@ -76,10 +77,10 @@ namespace NetCheatX.UI.Settings
             DefaultTypeEditor = new Dictionary<Type, Core.ITypeEditor>();
 
             // Load existing Platform Settings
-            if (loadPath != null && File.Exists(loadPath))
+            if (iniPath != null && File.Exists(iniPath))
             {
                 // Read all text
-                string text = File.ReadAllText(loadPath);
+                string text = File.ReadAllText(iniPath);
 
                 // Nothing to load
                 if (text.Length == 0)
@@ -89,6 +90,88 @@ namespace NetCheatX.UI.Settings
                 if (text.StartsWith("1 "))
                     LoadSettings1(text);
             }
+
+
+            // Load layout
+            if (xmlPath != null && File.Exists(xmlPath))
+            {
+                try { host.XFormDockPanel.LoadFromXml(xmlPath, FromPersistString); } catch (Exception e) { Program.logger.LogException(e); }
+            }
+        }
+
+        // Close settings
+        public void Close(WeifenLuo.WinFormsUI.Docking.DockPanel dockPanel)
+        {
+            int index0, index1, x;
+            string value;
+            string[] lines;
+            string tag = "PersistString";
+            string output = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Settings", Platform.ToLower());
+
+            // Save layout
+            dockPanel.SaveAsXml(output + ".xml");
+
+            //Update 'PersistString' to interface
+            lines = File.ReadAllLines(output + ".xml");
+            lines[0] = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"; // Fix utf-16 load error
+            for (x = 0; x < lines.Length; x++)
+            {
+                index0 = lines[x].IndexOf(tag);
+                if (index0 < 0)
+                    continue;
+
+                index1 = index0;
+
+                // Get existing value
+                if (!EncapsulateTag(ref index1, out value, lines[x], "\"", "\""))
+                    continue;
+
+                // Get Type from PersistString value
+                Type t = GetTypeFromAppDomain(value);
+                if (t == null)
+                    continue;
+
+                foreach (Core.UI.XForm xform in _host.XForms)
+                {
+                    if (xform.GetType() == t)
+                    {
+                        // Remove existing value
+                        index0 += tag.Length + 2;
+                        lines[x] = lines[x].Remove(index0, value.Length);
+
+                        // Generate new value
+                        value = _host.IPluginExtensionToString(xform.ParentPlugin) + " " + Convert.ToBase64String(Encoding.ASCII.GetBytes(xform.UniqueName));
+
+                        // Insert new value
+                        lines[x] = lines[x].Insert(index0, value);
+                    }
+                }
+            }
+
+            // Write new xml layout file
+            File.WriteAllLines(output + ".xml", lines);
+
+            // Write other settings
+            StreamWriter ini = new StreamWriter(File.Create(output + ".ini"));
+
+            ini.WriteLine("1 ");                                                        // Settings Version
+            ini.WriteLine("[DEFINE] PLATFORM \"" + Platform + "\" [/DEFINE]");          // Platform
+            ini.WriteLine("[DEFINE] AUTHOR \"" + Author + "\" [/DEFINE]");              // Default Author
+
+            // Default Type Editors
+            foreach (Type t in DefaultTypeEditor.Keys)
+                ini.WriteLine("[DEFINE] ITYPEEDITOR \"" + t.ToString() + "\" \"" + _host.IPluginExtensionToString(DefaultTypeEditor[t]) + "\" [/DEFINE]");
+
+            ini.Close();
+        }
+
+        public void Dispose()
+        {
+            DefaultTypeEditor.Clear();
+            DefaultTypeEditor = null;
+
+            Platform = null;
+            Author = null;
         }
 
         #region Load Settings Version 1 File Format
@@ -100,18 +183,11 @@ namespace NetCheatX.UI.Settings
             public string[] values;
         }
 
-        // Layout
-        private struct LS1Layout
-        {
-
-        }
-
         // Version 1 PlatformSetting file format
         private void LoadSettings1(string text)
         {
             //[DEFINE] TYPE "VALUE0" "VALUE1" ... [/DEFINE]
-            //[LAYOUT] ... [/LAYOUT]
-
+            
             List<LS1Definition> defs;
             LoadDefinitions1(out defs, text);
 
@@ -123,9 +199,6 @@ namespace NetCheatX.UI.Settings
                     {
                         case "PLATFORM": // Platform set by the Display class that owns this instance
 
-                            break;
-                        case "THEME": // Theme (only set on load)
-                            Theme = (Core.Types.MetroTheme)Enum.Parse(typeof(Core.Types.MetroTheme), def.values[0]);
                             break;
                         case "AUTHOR": // Default author name
                             Author = def.values[0];
@@ -141,7 +214,7 @@ namespace NetCheatX.UI.Settings
                             break;
                     }
                 }
-                catch { }
+                catch (Exception e) { Program.logger.LogException(e); }
             }
 
         }
@@ -176,9 +249,11 @@ namespace NetCheatX.UI.Settings
                     defs.Add(item);
             }
         }
-        
+
 
         #endregion
+
+        #region Private Load Functions
 
         private bool EncapsulateTag(ref int startIndex, out string value, string text, string startTag, string stopTag)
         {
@@ -192,7 +267,7 @@ namespace NetCheatX.UI.Settings
             if (stopI < 0) // Invalid tag
                 return false;
 
-            value = text.Substring(startI + startTag.Length, stopI - (startI + startTag.Length));
+            value = text.Substring(startI + startTag.Length, stopI - (startI + startTag.Length)).Trim();
             startIndex = stopI + stopTag.Length;
             return true;
         }
@@ -208,5 +283,44 @@ namespace NetCheatX.UI.Settings
 
             return null;
         }
+
+        private Core.UI.XForm FromPersistString(string persistString)
+        {
+            Core.UI.XForm xForm = null;
+            string[] words = persistString.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            byte[] buffer = null; ;
+
+            if (words.Length == 2) // IPluginExtension XForm
+            {
+                buffer = Convert.FromBase64String(words[1]);
+                words[1] = Encoding.ASCII.GetString(buffer);
+                //words[1] = Encoding.UTF8.GetString(buffer);
+                Core.IPluginExtension ext = _host.FindIPluginExtension(words[0]);
+                if (ext == null)
+                    return null;
+
+                if (ext is Core.IAddOn)
+                    (ext as Core.IAddOn).InitializeXForm(out xForm, words[1]);
+                else if (ext is Core.ICodeEditor)
+                    (ext as Core.ICodeEditor).InitializeXForm(out xForm, words[1]);
+                else if (ext is Core.ICommunicator)
+                    (ext as Core.ICommunicator).InitializeXForm(out xForm, words[1]);
+
+                if (xForm != null)
+                {
+                    xForm.UniqueName = words[1];
+                    xForm.ParentPlugin = ext;
+                }
+            }
+            else // UI Custom DockContent
+            {
+
+            }
+
+            return xForm;
+        }
+
+        #endregion
+
     }
 }

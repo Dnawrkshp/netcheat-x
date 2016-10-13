@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dockPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -36,17 +35,11 @@
             this.platformToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutNetCheatXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.dockPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // dockPanel
-            // 
-            this.dockPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dockPanel.Location = new System.Drawing.Point(0, 24);
-            this.dockPanel.Name = "dockPanel";
-            this.dockPanel.Size = new System.Drawing.Size(488, 434);
-            this.dockPanel.TabIndex = 1;
             // 
             // menuStrip
             // 
@@ -95,9 +88,18 @@
             // 
             // helpToolStripMenuItem
             // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutNetCheatXToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // aboutNetCheatXToolStripMenuItem
+            // 
+            this.aboutNetCheatXToolStripMenuItem.Name = "aboutNetCheatXToolStripMenuItem";
+            this.aboutNetCheatXToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.aboutNetCheatXToolStripMenuItem.Text = "About NetCheatX";
+            this.aboutNetCheatXToolStripMenuItem.Click += new System.EventHandler(this.aboutNetCheatXToolStripMenuItem_Click);
             // 
             // toolStrip
             // 
@@ -107,13 +109,21 @@
             this.toolStrip.TabIndex = 6;
             this.toolStrip.Text = "toolStrip1";
             // 
+            // dockPanel
+            // 
+            this.dockPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dockPanel.Location = new System.Drawing.Point(0, 49);
+            this.dockPanel.Name = "dockPanel";
+            this.dockPanel.Size = new System.Drawing.Size(488, 409);
+            this.dockPanel.TabIndex = 8;
+            // 
             // Display
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(488, 458);
-            this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.dockPanel);
+            this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.menuStrip);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip;
@@ -121,6 +131,7 @@
             this.Name = "Display";
             this.Text = "NetCheat X";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Display_FormClosing);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -128,9 +139,13 @@
 
         }
 
+        private void SetupDockPanel()
+        {
+
+        }
+
         #endregion
 
-        private WeifenLuo.WinFormsUI.Docking.DockPanel dockPanel;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
@@ -139,6 +154,8 @@
         private System.Windows.Forms.ToolStripMenuItem windowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStrip toolStrip;
+        private System.Windows.Forms.ToolStripMenuItem aboutNetCheatXToolStripMenuItem;
+        private WeifenLuo.WinFormsUI.Docking.DockPanel dockPanel;
     }
 }
 

@@ -10,6 +10,10 @@ namespace LegacyCode
     public class LegacyCodeEditor : ICodeEditor
     {
         private int _addFormCount = 0;
+        private IPluginHost _host = null;
+
+        // unique id of the Editor form (used when NetCheat X is loading last saved UI layout)
+        private string form_editor_id = "LEGACYEDITOR";
 
 
         public string Author { get; } = "Dan Gerendasy";
@@ -33,18 +37,13 @@ namespace LegacyCode
             return true;
         }
 
-        public void Initialize(IPluginHost host)
-        {
-            host.RegisterWindow(this, this.Name, Name + " " + Version + " EDITOR", Description, AddForm);
-            host.RegisterAddCode(this, "Add code to code editor form.", AddToCodes);
-        }
-
         bool AddToCodes(IPluginHost host, ISearchType type, ISearchResult[] results, NetCheatX.Core.UI.XForm form)
         {
             string code;
             List<string> lines = new List<string>();
             UI.Editor editor = (UI.Editor)form;
 
+            // Loop through and convert each result to a legacy code and add it
             foreach (ISearchResult result in results)
             {
                 type.ResultToLegacyCode(out code, result);
@@ -59,9 +58,49 @@ namespace LegacyCode
             return true;
         }
 
+
+        // Execute all constant write codes
+        public void ConstantExecute(IPluginHost host, NetCheatX.Core.UI.XForm xForm)
+        {
+            if (xForm == null || !(xForm is UI.Editor))
+                return;
+
+            UI.Editor editor = (UI.Editor)xForm;
+
+            editor.Execute(true);
+        }
+
+        public bool InitializeXForm(out NetCheatX.Core.UI.XForm xForm, string uniqueName)
+        {
+            xForm = null;
+
+            // Go through each form ID and set xForm to initialized form
+            // Return null if invalid uniqueName
+            if (uniqueName == form_editor_id)
+            {
+                xForm = new UI.Editor(_host, Name + " " + Version + " [" + _addFormCount.ToString() + "]");
+                _addFormCount++;
+                return true;
+            }
+
+            return false;
+        }
+
+        public void Initialize(IPluginHost host)
+        {
+            _host = host;
+
+            // Setup unique names for each form
+            form_editor_id = Name + " " + Version + " " + form_editor_id;
+
+            host.RegisterWindow(this, this.Name, form_editor_id, Description, AddForm);
+            host.RegisterAddCode(this, "Add code to code editor form.", AddToCodes);
+        }
+
         public void Dispose(IPluginHost host)
         {
-            
+            _host = null;
+            form_editor_id = null;
         }
     }
 }

@@ -9,28 +9,8 @@ namespace NetCheatX.Core
     /// <summary>
     /// Search method plugin interface
     /// </summary>
-    public interface ISearchMethod
+    public interface ISearchMethod : IPluginExtension
     {
-        /// <summary>
-        /// Name of the ISearchMethod
-        /// </summary>
-        string Name { get; }
-
-        /// <summary>
-        /// Description of the ISearchMethod's purpose
-        /// </summary>
-        string Description { get; }
-
-        /// <summary>
-        /// Author(s) of the ISearchMethod
-        /// </summary>
-        string Author { get; }
-
-        /// <summary>
-        /// Current version of the ISearchMethod
-        /// </summary>
-        string Version { get; }
-
         /// <summary>
         /// List of all supported platforms in abbreviated format (PS3, PC, iOS, Android)
         /// Leave null if all are supported

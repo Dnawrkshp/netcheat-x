@@ -75,7 +75,7 @@
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(300, 300);
             this.Name = "Init";
-            this.Text = " ";
+            this.Text = " Attach Process";
             this.ResumeLayout(false);
 
         }

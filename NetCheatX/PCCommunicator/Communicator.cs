@@ -139,6 +139,8 @@ namespace PCCommunicator
             // Create MemMan instance
             _manager = new MemMan();
 
+            _manager.ProcessExited += (sender, e) => { Ready = false; };
+
             // Register forms with UI
             host.RegisterWindow(this, "Attach Process", form_init_id, "Displays a list of processes to attach to.", AddInitForm);
         }
