@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace NetCheatX.Core.Bitlogic
 {
     /// <summary>
-    /// Compare byte arrays
+    /// Compare byte arrays.
     /// </summary>
     public static class Compare
     {
@@ -23,10 +23,10 @@ namespace NetCheatX.Core.Bitlogic
 
 
         /// <summary>
-        /// Returns true if b1 and b2 contain the same elements
+        /// Returns true if b1 and b2 contain the same elements.
         /// </summary>
-        /// <param name="b1">An array of bytes</param>
-        /// <param name="b2">An array of bytes</param>
+        /// <param name="b1">An array of bytes.</param>
+        /// <param name="b2">An array of bytes.</param>
         public static bool BAEqual(byte[] b1, byte[] b2)
         {
             if (b1 == null || b2 == null)
@@ -38,10 +38,10 @@ namespace NetCheatX.Core.Bitlogic
         }
 
         /// <summary>
-        /// Returns true if b1 and b2 do not contain the same elements
+        /// Returns true if b1 and b2 do not contain the same elements.
         /// </summary>
-        /// <param name="b1">An array of bytes</param>
-        /// <param name="b2">An array of bytes</param>
+        /// <param name="b1">An array of bytes.</param>
+        /// <param name="b2">An array of bytes.</param>
         public static bool BANotEqual(byte[] b1, byte[] b2)
         {
             if (b1 == null || b2 == null)
@@ -51,10 +51,10 @@ namespace NetCheatX.Core.Bitlogic
         }
 
         /// <summary>
-        /// Returns true if the first byte that does not match in both byte arrays has a lower value in array b1 (evaluated as a signed byte)
+        /// Returns true if the first byte that does not match in both byte arrays has a lower value in array b1 (evaluated as a signed byte).
         /// </summary>
-        /// <param name="b1">An array of bytes</param>
-        /// <param name="b2">An array of bytes</param>
+        /// <param name="b1">An array of bytes.</param>
+        /// <param name="b2">An array of bytes.</param>
         public static bool BALessThanSigned(byte[] b1, byte[] b2)
         {
             if (b1 == null || b2 == null)
@@ -75,10 +75,10 @@ namespace NetCheatX.Core.Bitlogic
         }
 
         /// <summary>
-        /// Returns true if the first byte that does not match in both byte arrays has a lower value in array b1 (evaluated as a unsigned byte)
+        /// Returns true if the first byte that does not match in both byte arrays has a lower value in array b1 (evaluated as a unsigned byte).
         /// </summary>
-        /// <param name="b1">An array of bytes</param>
-        /// <param name="b2">An array of bytes</param>
+        /// <param name="b1">An array of bytes.</param>
+        /// <param name="b2">An array of bytes.</param>
         public static bool BALessThanUnsigned(byte[] b1, byte[] b2)
         {
             if (b1 == null || b2 == null)
@@ -96,10 +96,10 @@ namespace NetCheatX.Core.Bitlogic
         }
 
         /// <summary>
-        /// Returns true if the first byte that does not match in both byte arrays has a lower or equal value in array b1 (evaluated as a signed byte)
+        /// Returns true if the first byte that does not match in both byte arrays has a lower or equal value in array b1 (evaluated as a signed byte).
         /// </summary>
-        /// <param name="b1">An array of bytes</param>
-        /// <param name="b2">An array of bytes</param>
+        /// <param name="b1">An array of bytes.</param>
+        /// <param name="b2">An array of bytes.</param>
         public static bool BALessThanOrEqualSigned(byte[] b1, byte[] b2)
         {
             if (b1 == null || b2 == null)
@@ -129,10 +129,10 @@ namespace NetCheatX.Core.Bitlogic
         }
 
         /// <summary>
-        /// Returns true if the first byte that does not match in both byte arrays has a lower or equal value in array b1 (evaluated as a unsigned byte)
+        /// Returns true if the first byte that does not match in both byte arrays has a lower or equal value in array b1 (evaluated as a unsigned byte).
         /// </summary>
-        /// <param name="b1">An array of bytes</param>
-        /// <param name="b2">An array of bytes</param>
+        /// <param name="b1">An array of bytes.</param>
+        /// <param name="b2">An array of bytes.</param>
         public static bool BALessThanOrEqualUnsigned(byte[] b1, byte[] b2)
         {
             if (b1 == null || b2 == null)
@@ -150,10 +150,10 @@ namespace NetCheatX.Core.Bitlogic
         }
 
         /// <summary>
-        /// Returns true if the first byte that does not match in both byte arrays has a greater value in array b1 (evaluated as a signed byte)
+        /// Returns true if the first byte that does not match in both byte arrays has a greater value in array b1 (evaluated as a signed byte).
         /// </summary>
-        /// <param name="b1">An array of bytes</param>
-        /// <param name="b2">An array of bytes</param>
+        /// <param name="b1">An array of bytes.</param>
+        /// <param name="b2">An array of bytes.</param>
         public static bool BAGreaterThanSigned(byte[] b1, byte[] b2)
         {
             if (b1 == null || b2 == null)
@@ -163,10 +163,10 @@ namespace NetCheatX.Core.Bitlogic
         }
 
         /// <summary>
-        /// Returns true if the first byte that does not match in both byte arrays has a greater value in array b1 (evaluated as a unsigned byte)
+        /// Returns true if the first byte that does not match in both byte arrays has a greater value in array b1 (evaluated as a unsigned byte).
         /// </summary>
-        /// <param name="b1">An array of bytes</param>
-        /// <param name="b2">An array of bytes</param>
+        /// <param name="b1">An array of bytes.</param>
+        /// <param name="b2">An array of bytes.</param>
         public static bool BAGreaterThanUnsigned(byte[] b1, byte[] b2)
         {
             if (b1 == null || b2 == null)
@@ -176,10 +176,10 @@ namespace NetCheatX.Core.Bitlogic
         }
 
         /// <summary>
-        /// Returns true if the first byte that does not match in both byte arrays has a greater or equal value in array b1 (evaluated as a signed byte)
+        /// Returns true if the first byte that does not match in both byte arrays has a greater or equal value in array b1 (evaluated as a signed byte).
         /// </summary>
-        /// <param name="b1">An array of bytes</param>
-        /// <param name="b2">An array of bytes</param>
+        /// <param name="b1">An array of bytes.</param>
+        /// <param name="b2">An array of bytes.</param>
         public static bool BAGreaterThanOrEqualSigned(byte[] b1, byte[] b2)
         {
             if (b1 == null || b2 == null)
@@ -189,10 +189,10 @@ namespace NetCheatX.Core.Bitlogic
         }
 
         /// <summary>
-        /// Returns true if the first byte that does not match in both byte arrays has a greater or equal value in array b1 (evaluated as a unsigned byte)
+        /// Returns true if the first byte that does not match in both byte arrays has a greater or equal value in array b1 (evaluated as a unsigned byte).
         /// </summary>
-        /// <param name="b1">An array of bytes</param>
-        /// <param name="b2">An array of bytes</param>
+        /// <param name="b1">An array of bytes.</param>
+        /// <param name="b2">An array of bytes.</param>
         public static bool BAGreaterThanOrEqualUnsigned(byte[] b1, byte[] b2)
         {
             if (b1 == null || b2 == null)

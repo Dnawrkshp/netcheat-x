@@ -51,17 +51,19 @@
     <Compile Include="Basic\BasicSearchResult.cs" />
     <Compile Include="Bitlogic\Compare.cs" />
     <Compile Include="Bitlogic\EndianBitConverter.cs" />
-    <Compile Include="Globals.cs" />
-    <Compile Include="IAddOn.cs" />
-    <Compile Include="ICodeEditor.cs" />
-    <Compile Include="ICommunicator.cs" />
-    <Compile Include="IPlugin.cs" />
-    <Compile Include="IPluginExtension.cs" />
-    <Compile Include="IPluginHost.cs" />
-    <Compile Include="ISearchMethod.cs" />
-    <Compile Include="ISearchResult.cs" />
-    <Compile Include="ISearchType.cs" />
-    <Compile Include="ITypeEditor.cs" />
+    <Compile Include="Containers\KeyValueContainer.cs" />
+    <Compile Include="Containers\PluginBaseContainer.cs" />
+    <Compile Include="Extensions\PluginBaseExtensions.cs" />
+    <Compile Include="Interfaces\IAddOn.cs" />
+    <Compile Include="Interfaces\ICodeEditor.cs" />
+    <Compile Include="Interfaces\ICommunicator.cs" />
+    <Compile Include="Interfaces\IPlugin.cs" />
+    <Compile Include="Interfaces\IPluginBase.cs" />
+    <Compile Include="Interfaces\IPluginHost.cs" />
+    <Compile Include="Interfaces\ISearchMethod.cs" />
+    <Compile Include="Interfaces\ISearchResult.cs" />
+    <Compile Include="Interfaces\ISearchType.cs" />
+    <Compile Include="Interfaces\ITypeEditor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types.cs" />
     <Compile Include="UI\XForm.cs">
@@ -74,6 +76,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -11,24 +11,22 @@ using System.Windows.Forms;
 namespace NetCheatX.Core.UI
 {
     /// <summary>
-    /// XForm class for UI
-    /// All dockable UI forms must inherit this class
-    /// If you wish to influence the theming, override SetTheme()
+    /// XForm class for UI. All dockable UI forms must inherit this class.
     /// </summary>
     public partial class XForm : WeifenLuo.WinFormsUI.Docking.DockContent
     {
         /// <summary>
-        /// Unique name of specific type of XForm (designated by the plugin)
+        /// Unique name of specific type of XForm (designated by the plugin).
         /// </summary>
         public string UniqueName { get; set; }
 
         /// <summary>
-        /// Parent plugin interface that added the XForm
+        /// Parent plugin interface that added the XForm.
         /// </summary>
-        public IPluginExtension ParentPlugin { get; set; }
+        public Interfaces.IPluginBase ParentPlugin { get; set; }
 
         /// <summary>
-        /// Constructor
+        /// Initializes new instance of <see cref="T:NetCheatX.Core.UI.XForm"/>
         /// </summary>
         public XForm()
         {
