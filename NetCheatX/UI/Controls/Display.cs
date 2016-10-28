@@ -19,7 +19,6 @@ namespace NetCheatX.UI.Controls
     {
 
         private Plugin.PluginHost _host = null;
-        private VS2015LightTheme _lightTheme = new VS2015LightTheme();
 
         public Display(Plugin.PluginHost host)
         {

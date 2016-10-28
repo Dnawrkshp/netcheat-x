@@ -37,7 +37,7 @@ namespace NetCheatX.UI.Plugin
             colAvailablePlugins.Clear();
 
             // Go through all the files in the plugin directory
-            foreach (string fileOn in Directory.GetFiles(Path, "*.dll", SearchOption.AllDirectories))
+            foreach (string fileOn in Directory.GetFiles(Path, (IntPtr.Size == 8) ? "*.dll64" : "*.dll", SearchOption.AllDirectories))
             {
                 bool pass = true;
                 for (int x = 0; x < fileNames.Length; x++)
@@ -77,7 +77,7 @@ namespace NetCheatX.UI.Plugin
                     if (!pluginType.IsAbstract)  // Only look at non-abstract types
                     {
                         //  Gets a type object of the interface we need the plugins to match
-                        Type typeInterface = pluginType.GetInterface("NetCheatX.Core.IPlugin", true);
+                        Type typeInterface = pluginType.GetInterface("NetCheatX.Core.Interfaces.IPluginBase", true);
 
                         // Make sure the interface we want to use actually exists
                         if (typeInterface != null)
@@ -92,7 +92,7 @@ namespace NetCheatX.UI.Plugin
                                 newPlugin.AssemblyPath = FileName;
 
                                 // Create a new instance and store the instance in the collection for later use
-                                newPlugin.Instance = (Core.Interfaces.IPlugin)Activator.CreateInstance(pluginAssembly.GetType(pluginType.ToString()));
+                                newPlugin.Instance = (Core.Interfaces.IPluginBase)Activator.CreateInstance(pluginAssembly.GetType(pluginType.ToString()));
 
                                 // Add the new plugin to our collection
                                 colAvailablePlugins.Add(newPlugin);
@@ -122,10 +122,10 @@ namespace NetCheatX.UI.Plugin
     // Data Class for Available Plugin.  Holds an instance of the loaded plugin, as well as the plugin's assembly path
     public class AvailablePlugin
     {
-        private Core.Interfaces.IPlugin myInstance = null;
+        private Core.Interfaces.IPluginBase myInstance = null;
         private string myAssemblyPath = "";
 
-        public Core.Interfaces.IPlugin Instance
+        public Core.Interfaces.IPluginBase Instance
         {
             get { return myInstance; }
             set { myInstance = value; }

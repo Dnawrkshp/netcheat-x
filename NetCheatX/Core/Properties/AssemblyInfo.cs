@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Core")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("NetCheatX.Core.dll")]
+[assembly: AssemblyDescription("NetCheatX.Core.dll")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Core")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCompany("Daniel Gerendasy")]
+[assembly: AssemblyProduct("NetCheatX")]
+[assembly: AssemblyCopyright("Copyright ©  2016 Daniel Gerendasy")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
