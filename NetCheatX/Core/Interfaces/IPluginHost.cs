@@ -35,6 +35,11 @@ namespace NetCheatX.Core.Interfaces
         /// </summary>
         Containers.KeyValueContainer<string, object> TempProperties { get; }
 
+        /// <summary>
+        /// Gets the current Communicator
+        /// </summary>
+        ICommunicator ActiveCommunicator { get; }
+
         #region Log
 
         /// <summary>
