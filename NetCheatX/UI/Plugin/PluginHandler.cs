@@ -37,29 +37,18 @@ namespace NetCheatX.UI.Plugin
             colAvailablePlugins.Clear();
 
             // Go through all the files in the plugin directory
-            foreach (string fileOn in Directory.GetFiles(Path, (IntPtr.Size == 8) ? "*.dll64" : "*.dll", SearchOption.AllDirectories))
+            foreach (string fileOn in Directory.GetFiles(Path, (IntPtr.Size == 8) ? "*.dll64" : "*.dll32", SearchOption.AllDirectories))
             {
-                bool pass = true;
-                for (int x = 0; x < fileNames.Length; x++)
+                try
                 {
-                    if (fileNames[x] == System.IO.Path.GetFileName(fileOn) || System.IO.Path.GetFileName(fileOn).Equals("Core.dll"))
-                        pass = false;
+                    AddPlugin(fileOn);
+                    Array.Resize(ref fileNames, fileNames.Length + 1);
+                    fileNames[fileNames.Length - 1] = System.IO.Path.GetFileName(fileOn);
                 }
-
-                // Add the plugin
-                if (pass)
+                catch (Exception e)
                 {
-                    try
-                    {
-                        AddPlugin(fileOn);
-                        Array.Resize(ref fileNames, fileNames.Length + 1);
-                        fileNames[fileNames.Length - 1] = System.IO.Path.GetFileName(fileOn);
-                    }
-                    catch (Exception e)
-                    {
-                        Program.logger.LogException(e);
-                        System.Windows.Forms.MessageBox.Show(e.StackTrace + "\r\n\r\n" + e.Message, e.Source);
-                    }
+                    Program.logger.LogException(e);
+                    System.Windows.Forms.MessageBox.Show(e.StackTrace + "\r\n\r\n" + e.Message, e.Source);
                 }
             }
         }
