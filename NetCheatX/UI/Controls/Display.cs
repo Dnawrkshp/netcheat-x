@@ -46,10 +46,37 @@ namespace NetCheatX.UI.Controls
             host.FunctionItemAdded += Host_FunctionItemAdded;
             host.WindowItemAdded += Host_WindowItemAdded;
 
+            host.AddOns.PluginAdded += Container_PluginAdded;
+            host.AddOns.PluginRemoved += Container_PluginRemoved;
+            host.CodeEditors.PluginAdded += Container_PluginAdded;
+            host.CodeEditors.PluginRemoved += Container_PluginRemoved;
+            host.Communicators.PluginAdded += Container_PluginAdded;
+            host.Communicators.PluginRemoved += Container_PluginRemoved;
+            host.SearchMethods.PluginAdded += Container_PluginAdded;
+            host.SearchMethods.PluginRemoved += Container_PluginRemoved;
+            host.SearchTypes.PluginAdded += Container_PluginAdded;
+            host.SearchTypes.PluginRemoved += Container_PluginRemoved;
+            host.TypeEditors.PluginAdded += Container_PluginAdded;
+            host.TypeEditors.PluginRemoved += Container_PluginRemoved;
+
             host.ActiveCommunicator.ReadyChanged += ActiveCommunicator_ReadyChanged;
 
             // Set toolstrip invisible until it an item is added to it
             toolStrip.Visible = false;
+
+            // Initialize all plugins added to containers
+            foreach (IPluginBase p in host.AddOns)
+                p.Initialize(_host);
+            foreach (IPluginBase p in host.CodeEditors)
+                p.Initialize(_host);
+            foreach (IPluginBase p in host.Communicators)
+                p.Initialize(_host);
+            foreach (IPluginBase p in host.SearchMethods)
+                p.Initialize(_host);
+            foreach (IPluginBase p in host.SearchTypes)
+                p.Initialize(_host);
+            foreach (IPluginBase p in host.TypeEditors)
+                p.Initialize(_host);
 
             // Trigger events for all UI items in Host
             foreach (Types.WindowItem item in host.WindowItems)
@@ -60,6 +87,18 @@ namespace NetCheatX.UI.Controls
         }
 
         #region Host Event Handlers
+
+        // Initialize added plugins
+        private void Container_PluginAdded(object sender, Core.Types.PluginBaseChangedEventArgs e)
+        {
+            e.Plugin.Initialize(_host);
+        }
+
+        // Dispose removed plugins
+        private void Container_PluginRemoved(object sender, Core.Types.PluginBaseChangedEventArgs e)
+        {
+            e.Plugin.Dispose(_host);
+        }
 
         // Update Ready state
         private void ActiveCommunicator_ReadyChanged(object sender, string e)
@@ -79,7 +118,7 @@ namespace NetCheatX.UI.Controls
             if (e.ParentPlugin is ICodeEditor) // Add to /View/Code Editors/
                 AddMenuStripItem("View/Code Editors/" + e.Path, e);
             else if (e.ParentPlugin is IAddOn) // Add to /View/Add Ons
-                AddMenuStripItem("View/Add Ons" + e.Path, e);
+                AddMenuStripItem("View/Add Ons/" + e.Path, e);
             else if (e.ParentPlugin is ICommunicator) // Add to /View/Communicator
                 AddMenuStripItem("View/Communicator/" + e.Path, e);
             else if (e.ParentPlugin is ISearchType) // Add to /View/Search Types
@@ -184,6 +223,24 @@ namespace NetCheatX.UI.Controls
 
         private void Display_FormClosing(object sender, FormClosingEventArgs e)
         {
+            _host.FunctionItemAdded -= Host_FunctionItemAdded;
+            _host.WindowItemAdded -= Host_WindowItemAdded;
+
+            _host.AddOns.PluginAdded -= Container_PluginAdded;
+            _host.AddOns.PluginRemoved -= Container_PluginRemoved;
+            _host.CodeEditors.PluginAdded -= Container_PluginAdded;
+            _host.CodeEditors.PluginRemoved -= Container_PluginRemoved;
+            _host.Communicators.PluginAdded -= Container_PluginAdded;
+            _host.Communicators.PluginRemoved -= Container_PluginRemoved;
+            _host.SearchMethods.PluginAdded -= Container_PluginAdded;
+            _host.SearchMethods.PluginRemoved -= Container_PluginRemoved;
+            _host.SearchTypes.PluginAdded -= Container_PluginAdded;
+            _host.SearchTypes.PluginRemoved -= Container_PluginRemoved;
+            _host.TypeEditors.PluginAdded -= Container_PluginAdded;
+            _host.TypeEditors.PluginRemoved -= Container_PluginRemoved;
+
+            _host.ActiveCommunicator.ReadyChanged -= ActiveCommunicator_ReadyChanged;
+
             _host.Dispose();
         }
 
