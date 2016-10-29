@@ -39,9 +39,6 @@ namespace NetCheatX.UI.Controls
             // Set form Text
             UpdateTextStatus("Not Ready");
 
-            // Load existing settings
-            host.PlatformSettings = new Settings.PlatformSetting(host, System.IO.Path.Combine(Application.StartupPath, "Settings", host.ActiveCommunicator.Platform), host.ActiveCommunicator.Platform);
-
             // Add host events
             host.FunctionItemAdded += Host_FunctionItemAdded;
             host.WindowItemAdded += Host_WindowItemAdded;
@@ -78,12 +75,8 @@ namespace NetCheatX.UI.Controls
             foreach (IPluginBase p in host.TypeEditors)
                 p.Initialize(_host);
 
-            // Trigger events for all UI items in Host
-            foreach (Types.WindowItem item in host.WindowItems)
-                host.TriggerWindowItemAdded(item);
-
-            foreach (Types.FunctionItem item in host.FunctionItems)
-                host.TriggerFunctionItemAdded(item);
+            // Load existing settings
+            host.PlatformSettings = new Settings.PlatformSetting(host, System.IO.Path.Combine(Application.StartupPath, "Settings", host.ActiveCommunicator.Platform), host.ActiveCommunicator.Platform);
         }
 
         #region Host Event Handlers

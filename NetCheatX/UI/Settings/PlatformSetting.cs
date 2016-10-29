@@ -122,6 +122,7 @@ namespace NetCheatX.UI.Settings
                     continue;
 
                 index1 = index0;
+                index0 += tag.Length + 2;
 
                 // Get existing value
                 if (!EncapsulateTag(ref index1, out value, lines[x], "\"", "\""))
@@ -137,7 +138,6 @@ namespace NetCheatX.UI.Settings
                     if (xform.GetType() == t)
                     {
                         // Remove existing value
-                        index0 += tag.Length + 2;
                         lines[x] = lines[x].Remove(index0, value.Length);
 
                         // Generate new value
