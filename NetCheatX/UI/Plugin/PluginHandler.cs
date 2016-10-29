@@ -33,9 +33,6 @@ namespace NetCheatX.UI.Plugin
         {
             string[] fileNames = new string[0];
 
-            // First empty the collection, we're reloading them all
-            colAvailablePlugins.Clear();
-
             // Go through all the files in the plugin directory
             foreach (string fileOn in Directory.GetFiles(Path, (IntPtr.Size == 8) ? "*.dll64" : "*.dll32", SearchOption.AllDirectories))
             {

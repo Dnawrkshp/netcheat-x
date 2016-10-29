@@ -12,6 +12,7 @@ namespace NetCheatX.UI
     {
         public static Plugin.PluginHandler pluginHandler;
         public static Settings.Logger logger;
+        public static Settings.ProgramSetting programSetting;
 
         /// <summary>
         /// The main entry point for the application.
@@ -19,6 +20,9 @@ namespace NetCheatX.UI
         [STAThread]
         static void Main()
         {
+            // Setup logger
+            logger = new Settings.Logger("logs", "NetCheatX", DateTime.Now);
+
             // Setup workspace
             if (!System.IO.Directory.Exists("logs"))
                 System.IO.Directory.CreateDirectory("logs");
@@ -27,17 +31,20 @@ namespace NetCheatX.UI
             if (!System.IO.Directory.Exists("Plugins"))
                 System.IO.Directory.CreateDirectory("Plugins");
 
-
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            // Load Program settings
+            programSetting = Settings.ProgramSetting.Load("ncx.ini");
 
             // Setup variables
             Plugin.PluginHost pluginHost = new Plugin.PluginHost();
             pluginHandler = new Plugin.PluginHandler();
-            logger = new Settings.Logger("logs", "NetCheatX", DateTime.Now);
 
             // Load and initialize plugins
-            pluginHandler.FindPlugins(AppDomain.CurrentDomain.BaseDirectory + "\\Plugins");
+            foreach (string path in programSetting.PluginPaths)
+                pluginHandler.FindPlugins(path);
             pluginHost.InitializePlugins();
 
             // Load ICommunicator plugin

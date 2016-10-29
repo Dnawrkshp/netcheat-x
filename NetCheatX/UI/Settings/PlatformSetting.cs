@@ -291,7 +291,7 @@ namespace NetCheatX.UI.Settings
             string[] words = persistString.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             byte[] buffer = null; ;
 
-            if (words.Length == 2) // IPluginExtension XForm
+            if (words.Length == 2) // IPluginBase XForm
             {
                 buffer = Convert.FromBase64String(words[1]);
                 words[1] = Encoding.ASCII.GetString(buffer);
