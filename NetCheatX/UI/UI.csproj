@@ -145,6 +145,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\Logger.cs" />
     <Compile Include="Settings\PlatformSetting.cs" />
+    <Compile Include="Settings\ProgramSetting.cs" />
     <Compile Include="Types\FunctionItem.cs" />
     <Compile Include="Types\WindowItem.cs" />
     <EmbeddedResource Include="Controls\Display.resx">
