@@ -23,6 +23,8 @@ namespace NetCheatX.UI.Controls
 
             InitializeComponent();
 
+            this.Icon = Properties.Resources.ncx;
+
             // List all ICommunicators
             foreach (NetCheatX.Core.Interfaces.ICommunicator com in communicators)
                 lbComs.Items.Add(com.Name + " " + com.Version);

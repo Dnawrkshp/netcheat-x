@@ -311,6 +311,8 @@ namespace NetCheatX.UI.Settings
 
                 if (xForm != null)
                 {
+                    if (xForm.Icon == null)
+                        xForm.Icon = Properties.Resources.ncx;
                     xForm.UniqueName = words[1];
                     xForm.ParentPlugin = ext;
                     _host.XForms.Add(xForm);

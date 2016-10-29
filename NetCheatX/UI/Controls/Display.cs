@@ -33,6 +33,8 @@ namespace NetCheatX.UI.Controls
 
             InitializeComponent();
 
+            this.Icon = Properties.Resources.ncx;
+
             // Setup dock panel
             host.XFormDockPanel = dockPanel;
 
@@ -167,6 +169,8 @@ namespace NetCheatX.UI.Controls
                 {
                     if (xform != null)
                     {
+                        if (xform.Icon == null)
+                            xform.Icon = Properties.Resources.ncx;
                         xform.UniqueName = windowItem.UniqueName;
                         xform.ParentPlugin = windowItem.ParentPlugin;
                         _host.XForms.Add(xform);
