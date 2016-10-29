@@ -223,6 +223,10 @@ namespace NetCheatX.UI.Plugin
             foreach (IPluginBase item in _typeEditors)
                 if (item.ToBase64String() == base64String)
                     return item;
+            foreach (AvailablePlugin item in Program.pluginHandler.AvailablePlugins)
+            {
+
+            }
 
             return null;
         }

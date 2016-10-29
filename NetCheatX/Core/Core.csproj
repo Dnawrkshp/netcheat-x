@@ -111,6 +111,7 @@
     <Compile Include="Interfaces\ICommunicator.cs" />
     <Compile Include="Interfaces\IPluginBase.cs" />
     <Compile Include="Interfaces\IPluginHost.cs" />
+    <Compile Include="Interfaces\IPluginMain.cs" />
     <Compile Include="Interfaces\ISearchMethod.cs" />
     <Compile Include="Interfaces\ISearchResult.cs" />
     <Compile Include="Interfaces\ISearchType.cs" />
