@@ -9,20 +9,20 @@ using NetCheatX.Core.Extensions;
 namespace NetCheatX.Core.Containers
 {
     /// <summary>
-    /// Represents a collection of IPluginResults.
+    /// Represents a collection of ISearchResults.
     /// </summary>
-    /// <typeparam name="T">A class or interface that inherits the <see cref="T:NetCheatX.Core.Interfaces.IPluginBase"/> interface.</typeparam>
+    /// <typeparam name="T">A class or interface that inherits the <see cref="T:NetCheatX.Core.Interfaces.ISearchResult"/> interface.</typeparam>
     public class SearchResultContainer<T> : IEnumerable<T> where T : Interfaces.ISearchResult
     {
         private List<T> _innerList = null;
 
         /// <summary>
-        /// Occurs when a plugin is added.
+        /// Occurs when a search result is added.
         /// </summary>
         public event EventHandler<Types.SearchResultChangedEventArgs> ResultAdded;
 
         /// <summary>
-        /// Occurs when a plugin is removed.
+        /// Occurs when a search result is removed.
         /// </summary>
         public event EventHandler<Types.SearchResultChangedEventArgs> ResultRemoved;
 
@@ -75,7 +75,7 @@ namespace NetCheatX.Core.Containers
         }
 
         /// <summary>
-        /// Initializes new instance of <see cref="PluginBaseContainer{T}"/>.
+        /// Initializes new instance of <see cref="SearchResultContainer{T}"/>.
         /// </summary>
         public SearchResultContainer()
         {
@@ -95,7 +95,7 @@ namespace NetCheatX.Core.Containers
         }
 
         /// <summary>
-        /// Removes all elements from the <see cref="PluginBaseContainer{T}"/>.
+        /// Removes all elements from the <see cref="SearchResultContainer{T}"/>.
         /// </summary>
         public void Clear()
         {
@@ -109,7 +109,7 @@ namespace NetCheatX.Core.Containers
         }
 
         /// <summary>
-        /// Determines whether an element is in the <see cref="PluginBaseContainer{T}"/>.
+        /// Determines whether an element is in the <see cref="SearchResultContainer{T}"/>.
         /// </summary>
         /// <param name="item">The value to locate in the sequence.</param>
         public bool Contains(T item)
@@ -118,9 +118,9 @@ namespace NetCheatX.Core.Containers
         }
 
         /// <summary>
-        /// Copies the entire <see cref="PluginBaseContainer{T}"/> to a compatible one-dimenstional array, starting at the specified index of the target array.
+        /// Copies the entire <see cref="SearchResultContainer{T}"/> to a compatible one-dimenstional array, starting at the specified index of the target array.
         /// </summary>
-        /// <param name="array">The one-dimensional Array that is the destination of the elements copied from <see cref="PluginBaseContainer{T}"/>. The Array must have zero-based indexing.</param>
+        /// <param name="array">The one-dimensional Array that is the destination of the elements copied from <see cref="SearchResultContainer{T}"/>. The Array must have zero-based indexing.</param>
         /// <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
         public void CopyTo(T[] array, int arrayIndex)
         {
