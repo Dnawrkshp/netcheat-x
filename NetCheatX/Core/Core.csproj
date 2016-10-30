@@ -105,6 +105,7 @@
     <Compile Include="Bitlogic\EndianBitConverter.cs" />
     <Compile Include="Containers\KeyValueContainer.cs" />
     <Compile Include="Containers\PluginBaseContainer.cs" />
+    <Compile Include="Containers\SearchResultContainer.cs" />
     <Compile Include="Extensions\PluginBaseExtensions.cs" />
     <Compile Include="Interfaces\IAddOn.cs" />
     <Compile Include="Interfaces\ICodeEditor.cs" />

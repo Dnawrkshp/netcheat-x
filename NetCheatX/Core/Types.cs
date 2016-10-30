@@ -71,6 +71,17 @@ namespace NetCheatX.Core
         }
 
         /// <summary>
+        /// SearchResultContainer Search result changed EventArgs.
+        /// </summary>
+        public struct SearchResultChangedEventArgs
+        {
+            ///<summary>Plugin extension that added Plugin.</summary>
+            public Interfaces.ISearchResult OriginalResult;
+            ///<summary>Plugin added.</summary>
+            public Interfaces.ISearchResult NewResult;
+        }
+
+        /// <summary>
         /// Search parameter.
         /// </summary>
         public struct SearchParam
