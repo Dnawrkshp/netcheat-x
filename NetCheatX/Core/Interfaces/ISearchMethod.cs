@@ -30,12 +30,12 @@ namespace NetCheatX.Core.Interfaces
         /// <summary>
         /// First scan
         /// </summary>
-        /// <param name="result">List of search results. Populated by the scan method</param>
+        /// <param name="result">Empty list of search results.</param>
         /// <param name="searchType">ISearchType in use</param>
         /// <param name="args">All arguments in order. Defined by ISearchMethod's Params property</param>
         /// <param name="range">Memory regions to be scanned</param>
         /// <param name="setProgress">Callback to set the progress of scan</param>
-        void FirstScan(out List<ISearchResult> result, ISearchType searchType, object[] args, Types.MemoryRange[] range, Types.SetProgressCallback setProgress);
+        void FirstScan(ref Containers.SearchResultContainer<ISearchResult> result, ISearchType searchType, object[] args, Types.MemoryRange[] range, Types.SetProgressCallback setProgress);
 
         /// <summary>
         /// Next scan
@@ -44,7 +44,7 @@ namespace NetCheatX.Core.Interfaces
         /// <param name="searchType">ISearchType in use</param>
         /// <param name="args">All arguments in order. Defined by ISearchMethod's Params property</param>
         /// <param name="setProgress">Callback to set the progress of scan</param>
-        void NextScan(ref List<ISearchResult> result, ISearchType searchType, object[] args, Types.SetProgressCallback setProgress);
+        void NextScan(ref Containers.SearchResultContainer<ISearchResult> result, ISearchType searchType, object[] args, Types.SetProgressCallback setProgress);
 
         /// <summary>
         /// Support selected ISearchType

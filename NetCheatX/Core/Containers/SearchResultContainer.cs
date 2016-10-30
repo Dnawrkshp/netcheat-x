@@ -15,17 +15,13 @@ namespace NetCheatX.Core.Containers
     public class SearchResultContainer<T> : IEnumerable<T> where T : Interfaces.ISearchResult
     {
         private List<T> _innerList = null;
+        private Types.SearchResultUpdatedEventArgs[] _updates = null;
+
 
         /// <summary>
-        /// Occurs when a search result is added.
+        /// Occurs when a search result is added, removed, or changed
         /// </summary>
-        public event EventHandler<Types.SearchResultChangedEventArgs> ResultAdded;
-
-        /// <summary>
-        /// Occurs when a search result is removed.
-        /// </summary>
-        public event EventHandler<Types.SearchResultChangedEventArgs> ResultRemoved;
-
+        public event EventHandler<Types.SearchResultUpdatedEventArgs[]> SearchResultUpdated;
 
         /// <summary>
         /// Gets the number of elements in the <see cref="ICollection{T}"/>.
@@ -50,6 +46,11 @@ namespace NetCheatX.Core.Containers
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the user must invoke the RaiseEvents() method. By default events are raised on every change made to the <see cref="ICollection{T}"/>.
+        /// </summary>
+        public bool UserRaiseEvents { get; set; } = false;
+
+        /// <summary>
         /// Gets or sets the value associated with the specified index.
         /// </summary>
         /// <param name="index">The index of the element in the <see cref="SearchResultContainer{T}"/> to get or set.</param>
@@ -67,8 +68,15 @@ namespace NetCheatX.Core.Containers
             {
                 if (index > 0 && index < _innerList.Count)
                 {
-                    if (ResultAdded != null)
-                        ResultRemoved.Invoke(this, new Core.Types.SearchResultChangedEventArgs() { OriginalResult = _innerList[index], NewResult = value });
+                    Array.Resize(ref _updates, _updates.Length + 1);
+                    _updates[_updates.Length - 1] = new Types.SearchResultUpdatedEventArgs() {
+                        item = _innerList[index],
+                        newitem = value,
+                        Type = Types.SearchResultEventType.Changed
+                    };
+                    if (!UserRaiseEvents)
+                        RaiseEvents();
+
                     _innerList[index] = value;
                 }
             }
@@ -80,6 +88,19 @@ namespace NetCheatX.Core.Containers
         public SearchResultContainer()
         {
             _innerList = new List<T>();
+            _updates = new Types.SearchResultUpdatedEventArgs[0];
+        }
+
+        /// <summary>
+        /// Pushes all unraised events out.
+        /// </summary>
+        public void RaiseEvents()
+        {
+            if (SearchResultUpdated != null && _updates.Length > 0)
+            {
+                SearchResultUpdated.Invoke(this, _updates);
+                _updates = new Types.SearchResultUpdatedEventArgs[0];
+            }
         }
 
         /// <summary>
@@ -89,9 +110,15 @@ namespace NetCheatX.Core.Containers
         public void Add(T item)
         {
             _innerList.Add(item);
-            
-            if (ResultAdded != null)
-                ResultAdded.Invoke(this, new Core.Types.SearchResultChangedEventArgs() { OriginalResult = null, NewResult = item });
+
+            Array.Resize(ref _updates, _updates.Length + 1);
+            _updates[_updates.Length - 1] = new Types.SearchResultUpdatedEventArgs()
+            {
+                item = item,
+                Type = Types.SearchResultEventType.Created
+            };
+            if (!UserRaiseEvents)
+                RaiseEvents();
         }
 
         /// <summary>
@@ -99,13 +126,20 @@ namespace NetCheatX.Core.Containers
         /// </summary>
         public void Clear()
         {
-            while (_innerList.Count > 0)
+            int off = _updates.Length;
+            Array.Resize(ref _updates, _updates.Length + 1);
+            for (int x = 0; x < _innerList.Count; x++)
             {
-                if (ResultRemoved != null)
-                    ResultRemoved.Invoke(this, new Core.Types.SearchResultChangedEventArgs() { OriginalResult = _innerList[0], NewResult = null });
-
-                _innerList.RemoveAt(0);
+                _updates[off + x] = new Types.SearchResultUpdatedEventArgs()
+                {
+                    item = _innerList[x],
+                    Type = Types.SearchResultEventType.Removed
+                };
             }
+            if (!UserRaiseEvents)
+                RaiseEvents();
+
+            _innerList.Clear();
         }
 
         /// <summary>
@@ -133,8 +167,18 @@ namespace NetCheatX.Core.Containers
         /// <param name="item">The object to remove from the <see cref="ICollection{T}"/>.</param>
         public bool Remove(T item)
         {
-            if (_innerList.Contains(item) && ResultRemoved != null)
-                ResultRemoved.Invoke(this, new Core.Types.SearchResultChangedEventArgs() { OriginalResult = item, NewResult = null });
+            if (_innerList.Contains(item))
+            {
+                Array.Resize(ref _updates, _updates.Length + 1);
+                _updates[_updates.Length - 1] = new Types.SearchResultUpdatedEventArgs()
+                {
+                    item = item,
+                    Type = Types.SearchResultEventType.Removed
+                };
+
+                if (!UserRaiseEvents)
+                    RaiseEvents();
+            }
 
             return ((ICollection<T>)_innerList).Remove(item);
         }

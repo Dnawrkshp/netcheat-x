@@ -73,12 +73,27 @@ namespace NetCheatX.Core
         /// <summary>
         /// SearchResultContainer Search result changed EventArgs.
         /// </summary>
-        public struct SearchResultChangedEventArgs
+        public enum SearchResultEventType
         {
-            ///<summary>Plugin extension that added Plugin.</summary>
-            public Interfaces.ISearchResult OriginalResult;
-            ///<summary>Plugin added.</summary>
-            public Interfaces.ISearchResult NewResult;
+            ///<summary>Result created (held in item).</summary>
+            Created,
+            ///<summary>Result removed (held in item).</summary>
+            Removed,
+            ///<summary>Result changed (held in newitem).</summary>
+            Changed
+        }
+
+        /// <summary>
+        /// SearchResultContainer SearchResultUpdated EventArgs.
+        /// </summary>
+        public struct SearchResultUpdatedEventArgs
+        {
+            ///<summary>Type of update.</summary>
+            public SearchResultEventType Type;
+            ///<summary>ISearchResult added/removed/changed.</summary>
+            public Interfaces.ISearchResult item;
+            ///<summary>ISearchResult element in container changed to.</summary>
+            public Interfaces.ISearchResult newitem;
         }
 
         /// <summary>
