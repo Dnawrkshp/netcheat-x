@@ -2,13 +2,13 @@
 <package >
   <metadata>
     <id>NetCheatX.Core</id>
-    <version>1.0.1-alpha</version>
+    <version>1.0.2-alpha</version>
     <title>NetCheatX.Core</title>
     <authors>Daniel Gerendasy</authors>
     <owners>danielgerendasy</owners>
 	  <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/Dnawrkshp/netcheat-x</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/Dnawrkshp/netcheat-x/master/NetCheatX/UI/Resources/ncx.ico</iconUrl>
+    <iconUrl>http://www.dnawrkshp.com/data/ncx.ico</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>This package contains the runtime assemblies for NetCheatX Core. NetCheatX Core gives you everything necessary to create plugins for NetCheat X.</description>
     <releaseNotes>Bug fixes and performance improvements.</releaseNotes>
