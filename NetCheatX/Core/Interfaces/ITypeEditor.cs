@@ -23,7 +23,7 @@ namespace NetCheatX.Core.Interfaces
         void GetControl(out System.Windows.Forms.UserControl control);
 
         /// <summary>
-        /// Returns the unprocessed value contained in the UserControl
+        /// Returns the value contained in the UserControl as the data type defined in <see cref="EditorType"/>.
         /// </summary>
         /// <param name="control">Control to get value from.</param>
         /// <param name="value">An uninitialized object.</param>
