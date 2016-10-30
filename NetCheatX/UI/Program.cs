@@ -20,8 +20,11 @@ namespace NetCheatX.UI
         [STAThread]
         static void Main()
         {
+            string EnvironmentDirectory = Environment.CurrentDirectory;
+            Environment.CurrentDirectory = Path.GetDirectoryName(Environment.GetCommandLineArgs()[0]);
+
             // Setup logger
-            logger = new Settings.Logger("logs", "NetCheatX", DateTime.Now);
+            logger = new Settings.Logger(Path.Combine(Environment.CurrentDirectory, "logs"), "NetCheatX", DateTime.Now);
 
             // Setup workspace
             if (!System.IO.Directory.Exists("logs"))
@@ -45,6 +48,8 @@ namespace NetCheatX.UI
             // Load and initialize plugins
             foreach (string path in programSetting.PluginPaths)
                 pluginHandler.FindPlugins(path);
+            if (EnvironmentDirectory != Environment.CurrentDirectory)
+                pluginHandler.FindPlugins(EnvironmentDirectory);
             pluginHost.InitializePlugins();
 
             // Load ICommunicator plugin
