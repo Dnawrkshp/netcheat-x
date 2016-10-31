@@ -12,7 +12,7 @@ namespace NetCheatX.Core.Containers
     /// Represents a collection of ISearchResults.
     /// </summary>
     /// <typeparam name="T">A class or interface that inherits the <see cref="T:NetCheatX.Core.Interfaces.ISearchResult"/> interface.</typeparam>
-    public class SearchResultContainer<T> : IEnumerable<T> where T : Interfaces.ISearchResult
+    public class SearchResultContainer<T> : IEnumerable<T>, IList<T> where T : Interfaces.ISearchResult
     {
         private List<T> _innerList = null;
         private Types.SearchResultUpdatedEventArgs[] _updates = null;
@@ -101,6 +101,34 @@ namespace NetCheatX.Core.Containers
                 SearchResultUpdated.Invoke(this, _updates);
                 _updates = new Types.SearchResultUpdatedEventArgs[0];
             }
+        }
+
+        /// <summary>
+        /// Determines the index of a specific item in the <see cref="IList{T}"/>.
+        /// </summary>
+        /// <param name="item">The object to locate in the <see cref="IList{T}"/>.</param>
+        public int IndexOf(T item)
+        {
+            return ((IList<T>)_innerList).IndexOf(item);
+        }
+
+        /// <summary>
+        /// Inserts an item to the <see cref="IList{T}"/> at the specified index.
+        /// </summary>
+        /// <param name="index">The zero-based index at which item should be inserted.</param>
+        /// <param name="item">The object to insert into the <see cref="IList{T}"/>.</param>
+        public void Insert(int index, T item)
+        {
+            ((IList<T>)_innerList).Insert(index, item);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"></param>
+        public void RemoveAt(int index)
+        {
+            ((IList<T>)_innerList).RemoveAt(index);
         }
 
         /// <summary>
