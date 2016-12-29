@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -102,7 +102,6 @@ namespace NetCheatX.UI.Plugin
 
             pluginAssembly = null; // More cleanup
         }
-
     }
 
     // Data Class for Available Plugin.  Holds an instance of the loaded plugin, as well as the plugin's assembly path

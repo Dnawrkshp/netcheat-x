@@ -52,8 +52,8 @@ namespace NetCheatX.UI.Plugin
         public PluginBaseContainer<ISearchMethod> SearchMethods { get { return _searchMethods; } }
         public PluginBaseContainer<ISearchType> SearchTypes { get { return _searchTypes; } }
 
-        private Core.Containers.KeyValueContainer<string, string> _platformProperties = null;
-        private Core.Containers.KeyValueContainer<string, object> _tempProperties = null;
+        private KeyValueContainer<string, string> _platformProperties = null;
+        private KeyValueContainer<string, object> _tempProperties = null;
 
         public KeyValueContainer<string, string> PlatformProperties { get { return _platformProperties; } }
         public KeyValueContainer<string, object> TempProperties { get { return _tempProperties; } }
@@ -141,6 +141,14 @@ namespace NetCheatX.UI.Plugin
                 PlatformSettings = null;
             }
 
+            // Clean up properties
+            if (_platformProperties != null && _platformProperties.Count > 0)
+            {
+                _platformProperties.SaveXML(System.IO.Path.Combine(System.Windows.Forms.Application.StartupPath, "Settings", this.ActiveCommunicator.Platform.ToLower() + ".pluginxml"));
+                _platformProperties.Clear();
+                _platformProperties = null;
+            }
+
             // Clean up all interface lists
             for (x = 0; x < _codeEditors.Count; x++)
                 try { _codeEditors[x].Dispose(this); } catch (Exception e) { Program.logger.LogException(e); }
@@ -171,7 +179,6 @@ namespace NetCheatX.UI.Plugin
                 try { plugin.Instance.Dispose(this); } catch (Exception e) { Program.logger.LogException(e); }
 
             // Clean up properties
-            _platformProperties.Clear();
             _tempProperties.Clear();
 
             // Clean up dockPanel

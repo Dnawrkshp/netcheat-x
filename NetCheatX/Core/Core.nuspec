@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>NetCheatX.Core</id>
-    <version>1.0.8-alpha</version>
+    <version>1.0.9-alpha</version>
     <title>NetCheatX.Core</title>
     <authors>Daniel Gerendasy</authors>
     <owners>danielgerendasy</owners>
@@ -17,6 +17,7 @@
 	<language>en-US</language>
 	<frameworkAssemblies>
       <frameworkAssembly assemblyName="System.Windows.Forms" targetFramework="net40" />
+      <frameworkAssembly assemblyName="System.Drawing" targetFramework="net40" />
   </frameworkAssemblies>
 	<dependencies>
       <dependency id="DockPanelSuite" version="[2.10.0]" />

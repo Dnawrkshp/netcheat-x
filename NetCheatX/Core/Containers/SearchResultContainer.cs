@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -155,7 +155,7 @@ namespace NetCheatX.Core.Containers
         public void Clear()
         {
             int off = _updates.Length;
-            Array.Resize(ref _updates, _updates.Length + 1);
+            Array.Resize(ref _updates, off + _innerList.Count);
             for (int x = 0; x < _innerList.Count; x++)
             {
                 _updates[off + x] = new Types.SearchResultUpdatedEventArgs()

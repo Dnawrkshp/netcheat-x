@@ -63,6 +63,22 @@ namespace NetCheatX.Core.Bitlogic
                 Array.Reverse(value, index, length);
         }
 
+        /// <summary>
+        /// Flips byte array if the CPU endianness does not match the selected endianness and returns the result.
+        /// </summary>
+        /// <param name="value">A byte array.</param>
+        /// <param name="index">Starting index of the section.</param>
+        /// <param name="length">Number of elements in the section.</param>
+        private byte[] _flipBytes(byte[] value, int index, int length)
+        {
+            byte[] result = (byte[])value.Clone();
+            if (_endian == Types.Endian.BigEndian && BitConverter.IsLittleEndian ||
+                _endian == Types.Endian.LittleEndian && !BitConverter.IsLittleEndian)
+                Array.Reverse(result, index, length);
+
+            return result;
+        }
+
         #region Double Int64 Conversion
 
         /// <summary>
@@ -203,8 +219,7 @@ namespace NetCheatX.Core.Bitlogic
         /// <param name="startIndex">The starting position within value.</param>
         public char ToChar(byte[] value, int startIndex)
         {
-            _flipBytes(ref value, startIndex, 2);
-            return BitConverter.ToChar(value, startIndex);
+            return BitConverter.ToChar(_flipBytes(value, startIndex, 2), startIndex);
         }
 
         /// <summary>
@@ -214,8 +229,7 @@ namespace NetCheatX.Core.Bitlogic
         /// <param name="startIndex">The starting position within value.</param>
         public double ToDouble(byte[] value, int startIndex)
         {
-            _flipBytes(ref value, startIndex, 8);
-            return BitConverter.ToDouble(value, startIndex);
+            return BitConverter.ToDouble(_flipBytes(value, startIndex, 8), startIndex);
         }
 
         /// <summary>
@@ -225,8 +239,7 @@ namespace NetCheatX.Core.Bitlogic
         /// <param name="startIndex">The starting position within value.</param>
         public float ToSingle(byte[] value, int startIndex)
         {
-            _flipBytes(ref value, startIndex, 4);
-            return BitConverter.ToSingle(value, startIndex);
+            return BitConverter.ToSingle(_flipBytes(value, startIndex, 4), startIndex);
         }
 
         /// <summary>
@@ -236,8 +249,7 @@ namespace NetCheatX.Core.Bitlogic
         /// <param name="startIndex">The starting position within value.</param>
         public int ToInt32(byte[] value, int startIndex)
         {
-            _flipBytes(ref value, startIndex, 4);
-            return BitConverter.ToInt32(value, startIndex);
+            return BitConverter.ToInt32(_flipBytes(value, startIndex, 4), startIndex);
         }
 
         /// <summary>
@@ -247,8 +259,7 @@ namespace NetCheatX.Core.Bitlogic
         /// <param name="startIndex">The starting position within value.</param>
         public long ToInt64(byte[] value, int startIndex)
         {
-            _flipBytes(ref value, startIndex, 8);
-            return BitConverter.ToInt64(value, startIndex);
+            return BitConverter.ToInt64(_flipBytes(value, startIndex, 8), startIndex);
         }
 
         /// <summary>
@@ -258,8 +269,7 @@ namespace NetCheatX.Core.Bitlogic
         /// <param name="startIndex">The starting position within value.</param>
         public short ToInt16(byte[] value, int startIndex)
         {
-            _flipBytes(ref value, startIndex, 2);
-            return BitConverter.ToInt16(value, startIndex);
+            return BitConverter.ToInt16(_flipBytes(value, startIndex, 2), startIndex);
         }
 
         /// <summary>
@@ -269,8 +279,7 @@ namespace NetCheatX.Core.Bitlogic
         /// <param name="startIndex">The starting position within value.</param>
         public uint ToUInt32(byte[] value, int startIndex)
         {
-            _flipBytes(ref value, startIndex, 4);
-            return BitConverter.ToUInt32(value, startIndex);
+            return BitConverter.ToUInt32(_flipBytes(value, startIndex, 4), startIndex);
         }
 
         /// <summary>
@@ -280,8 +289,7 @@ namespace NetCheatX.Core.Bitlogic
         /// <param name="startIndex">The starting position within value.</param>
         public ulong ToUInt64(byte[] value, int startIndex)
         {
-            _flipBytes(ref value, startIndex, 8);
-            return BitConverter.ToUInt64(value, startIndex);
+            return BitConverter.ToUInt64(_flipBytes(value, startIndex, 8), startIndex);
         }
 
         /// <summary>
@@ -291,8 +299,7 @@ namespace NetCheatX.Core.Bitlogic
         /// <param name="startIndex">The starting position within value.</param>
         public ushort ToUInt16(byte[] value, int startIndex)
         {
-            _flipBytes(ref value, startIndex, 2);
-            return BitConverter.ToUInt16(value, startIndex);
+            return BitConverter.ToUInt16(_flipBytes(value, startIndex, 2), startIndex);
         }
 
         /// <summary>
@@ -303,8 +310,7 @@ namespace NetCheatX.Core.Bitlogic
         /// <param name="length">The number of array elements in value to convert.</param>
         public string ToString(byte[] value, int startIndex, int length)
         {
-            _flipBytes(ref value, startIndex, length);
-            return BitConverter.ToString(value, startIndex, length);
+            return BitConverter.ToString(_flipBytes(value, startIndex, length), startIndex, length);
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -46,10 +46,10 @@ namespace NetCheatX.UI
             pluginHandler = new Plugin.PluginHandler();
 
             // Load and initialize plugins
-            foreach (string path in programSetting.PluginPaths)
-                pluginHandler.FindPlugins(path);
             if (EnvironmentDirectory != Environment.CurrentDirectory)
                 pluginHandler.FindPlugins(EnvironmentDirectory);
+            foreach (string path in programSetting.PluginPaths)
+                pluginHandler.FindPlugins(path);
             pluginHost.InitializePlugins();
 
             // Load ICommunicator plugin

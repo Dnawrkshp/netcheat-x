@@ -68,6 +68,8 @@ namespace NetCheatX.Core.Bitlogic
             if (b1.Length == 0)
                 return false;
 
+            if ((sbyte)b1[0] > (sbyte)b2[0])
+                return false;
             if ((sbyte)b1[0] < (sbyte)b2[0])
                 return true;
 
@@ -113,6 +115,8 @@ namespace NetCheatX.Core.Bitlogic
             if (b1.Length == 0)
                 return false;
 
+            if ((sbyte)b1[0] > (sbyte)b2[0])
+                return false;
             if ((sbyte)b1[0] < (sbyte)b2[0])
                 return true;
 

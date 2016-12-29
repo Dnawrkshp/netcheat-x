@@ -104,7 +104,6 @@ namespace NetCheatX.UI.Settings
         public void Close(WeifenLuo.WinFormsUI.Docking.DockPanel dockPanel)
         {
             int index0, index1, x;
-            string value;
             string[] lines;
             string tag = "PersistString";
             string output = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Settings", Platform.ToLower());
@@ -125,7 +124,7 @@ namespace NetCheatX.UI.Settings
                 index0 += tag.Length + 2;
 
                 // Get existing value
-                if (!EncapsulateTag(ref index1, out value, lines[x], "\"", "\""))
+                if (!EncapsulateTag(ref index1, out string value, lines[x], "\"", "\""))
                     continue;
 
                 // Get Type from PersistString value
@@ -188,9 +187,7 @@ namespace NetCheatX.UI.Settings
         private void LoadSettings1(string text)
         {
             //[DEFINE] TYPE "VALUE0" "VALUE1" ... [/DEFINE]
-            
-            List<LS1Definition> defs;
-            LoadDefinitions1(out defs, text);
+            LoadDefinitions1(out var defs, text);
 
             foreach (LS1Definition def in defs)
             {
@@ -226,17 +223,16 @@ namespace NetCheatX.UI.Settings
             defs = new List<LS1Definition>();
 
             int startIndex = 0, itemStartIndex = 0;
-            string value, itemValue;
             LS1Definition item;
 
-            while (EncapsulateTag(ref startIndex, out value, text, "[DEFINE]", "[/DEFINE]"))
+            while (EncapsulateTag(ref startIndex, out string value, text, "[DEFINE]", "[/DEFINE]"))
             {
                 itemStartIndex = 0;
                 item = new LS1Definition() { values = new string[0] };
 
 
                 // Load values into item
-                while (EncapsulateTag(ref itemStartIndex, out itemValue, value, "\"", "\""))
+                while (EncapsulateTag(ref itemStartIndex, out string itemValue, value, "\"", "\""))
                 {
                     Array.Resize(ref item.values, item.values.Length + 1);
                     item.values[item.values.Length - 1] = itemValue;
