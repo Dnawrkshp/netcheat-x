@@ -69,10 +69,11 @@ namespace NetCheatX.Core.Containers
                 if (index > 0 && index < _innerList.Count)
                 {
                     Array.Resize(ref _updates, _updates.Length + 1);
-                    _updates[_updates.Length - 1] = new Types.SearchResultUpdatedEventArgs() {
+                    _updates[_updates.Length - 1] = new Types.SearchResultUpdatedEventArgs()
+                    {
                         item = _innerList[index],
                         newitem = value,
-                        Type = Types.SearchResultEventType.Changed
+                        type = Types.SearchResultEventType.Changed
                     };
                     if (!UserRaiseEvents)
                         RaiseEvents();
@@ -143,7 +144,7 @@ namespace NetCheatX.Core.Containers
             _updates[_updates.Length - 1] = new Types.SearchResultUpdatedEventArgs()
             {
                 item = item,
-                Type = Types.SearchResultEventType.Created
+                type = Types.SearchResultEventType.Created
             };
             if (!UserRaiseEvents)
                 RaiseEvents();
@@ -161,7 +162,7 @@ namespace NetCheatX.Core.Containers
                 _updates[off + x] = new Types.SearchResultUpdatedEventArgs()
                 {
                     item = _innerList[x],
-                    Type = Types.SearchResultEventType.Removed
+                    type = Types.SearchResultEventType.Removed
                 };
             }
             if (!UserRaiseEvents)
@@ -201,7 +202,7 @@ namespace NetCheatX.Core.Containers
                 _updates[_updates.Length - 1] = new Types.SearchResultUpdatedEventArgs()
                 {
                     item = item,
-                    Type = Types.SearchResultEventType.Removed
+                    type = Types.SearchResultEventType.Removed
                 };
 
                 if (!UserRaiseEvents)

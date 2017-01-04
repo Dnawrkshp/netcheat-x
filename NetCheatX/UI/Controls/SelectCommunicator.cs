@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NetCheatX.Core.Extensions;
 
 namespace NetCheatX.UI.Controls
 {
@@ -15,7 +16,7 @@ namespace NetCheatX.UI.Controls
         private Core.Containers.PluginBaseContainer<NetCheatX.Core.Interfaces.ICommunicator> _communicators = null;
         private Plugin.PluginHost _host = null;
 
-        public SelectCommunicator(Plugin.PluginHost host, Core.Containers.PluginBaseContainer<NetCheatX.Core.Interfaces.ICommunicator> communicators)
+        public SelectCommunicator(Plugin.PluginHost host, Core.Containers.PluginBaseContainer<NetCheatX.Core.Interfaces.ICommunicator> communicators, string lastCommunicator)
         {
             _host = host;
             _communicators = communicators;
@@ -27,9 +28,13 @@ namespace NetCheatX.UI.Controls
 
             // List all ICommunicators
             foreach (NetCheatX.Core.Interfaces.ICommunicator com in communicators)
+            {
                 lbComs.Items.Add(com.Name + " " + com.Version);
+                if (lastCommunicator != null && com.ToBase64String() == lastCommunicator)
+                    lbComs.SelectedIndex = lbComs.Items.Count - 1;
+            }
 
-            if (lbComs.Items.Count > 0)
+            if (lbComs.Items.Count > 0 && lbComs.SelectedIndex < 0)
                 lbComs.SelectedIndex = 0;
         }
 

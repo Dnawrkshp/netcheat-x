@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>NetCheatX.Core</id>
-    <version>1.0.9-alpha</version>
+    <version>1.0.13-alpha</version>
     <title>NetCheatX.Core</title>
     <authors>Daniel Gerendasy</authors>
     <owners>danielgerendasy</owners>
@@ -12,8 +12,8 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>This package contains the runtime assemblies for NetCheatX Core. NetCheatX Core gives you everything necessary to create plugins for NetCheat X.</description>
     <releaseNotes>Bug fixes and performance improvements.</releaseNotes>
-    <copyright>Copyright 2016</copyright>
-    <tags>netcheat core plugin</tags>
+    <copyright>Copyright ©2016 Daniel Gerendasy</copyright>
+    <tags>netcheat core plugin netcheatx</tags>
 	<language>en-US</language>
 	<frameworkAssemblies>
       <frameworkAssembly assemblyName="System.Windows.Forms" targetFramework="net40" />

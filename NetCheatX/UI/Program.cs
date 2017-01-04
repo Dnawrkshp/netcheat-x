@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NetCheatX.Core.Extensions;
 
 namespace NetCheatX.UI
 {
@@ -53,11 +54,14 @@ namespace NetCheatX.UI
             pluginHost.InitializePlugins();
 
             // Load ICommunicator plugin
-            Controls.SelectCommunicator select = new Controls.SelectCommunicator(pluginHost, pluginHost.Communicators);
+            Controls.SelectCommunicator select = new Controls.SelectCommunicator(pluginHost, pluginHost.Communicators, programSetting.LastCommunicator);
             select.ShowDialog();
 
             if (pluginHost.ActiveCommunicator == null)
                 return;
+
+            programSetting.LastCommunicator = pluginHost.ActiveCommunicator.ToBase64String();
+            programSetting.Save();
 
             // Load UI
             Application.Run(new Controls.Display(pluginHost));

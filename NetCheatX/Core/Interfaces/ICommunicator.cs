@@ -74,5 +74,13 @@ namespace NetCheatX.Core.Interfaces
         /// </summary>
         /// <returns>False if failed</returns>
         bool Reconnect();
+
+        /// <summary>
+        /// Event triggered when Context Menu is shown with <see cref="NetCheatX.Core.Extensions.ContextMenuStripExtensions.ShowX"/>.
+        /// </summary>
+        /// <param name="tags">An array of tags separated by spaces indicating the purpose of the data.</param>
+        /// <param name="supportedOutputTypes">An array of types indicating the possible arguments.</param>
+        /// <returns>Array of items to be added to the context menu.</returns>
+        Types.ContextMenuPath[] OnXShow(string[] tags, Type[] supportedOutputTypes);
     }
 }

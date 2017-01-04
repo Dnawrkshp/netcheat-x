@@ -65,9 +65,9 @@ namespace NetCheatX.Core
         public struct PluginBaseChangedEventArgs
         {
             ///<summary>Plugin extension that added Plugin.</summary>
-            public Interfaces.IPluginBase ParentPlugin;
+            public Interfaces.IPluginBase parentPlugin;
             ///<summary>Plugin added.</summary>
-            public Interfaces.IPluginBase Plugin;
+            public Interfaces.IPluginBase plugin;
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace NetCheatX.Core
         public struct SearchResultUpdatedEventArgs
         {
             ///<summary>Type of update.</summary>
-            public SearchResultEventType Type;
+            public SearchResultEventType type;
             ///<summary>ISearchResult added/removed/changed.</summary>
             public Interfaces.ISearchResult item;
             ///<summary>ISearchResult element in container changed to.</summary>
@@ -123,6 +123,21 @@ namespace NetCheatX.Core
         }
 
         /// <summary>
+        /// Context Menu Path.
+        /// </summary>
+        public struct ContextMenuPath
+        {
+            ///<summary>Context menu drop down path. Ex: "Legacy Editor/Window 0".</summary>
+            public string path;
+            ///<summary>Context menu item tooltip text.</summary>
+            public string tooltip;
+            ///<summary>Callback when item is clicked.</summary>
+            public ContextMenuPathTriggered callback;
+            ///<summary>Array of types requested by the plugin to be recieved in the data parameter.</summary>
+            public Type[] requestedTypes;
+        }
+
+        /// <summary>
         /// Callback function blueprint for plugins.
         /// </summary>
         /// <param name="host">UI application IPluginHost instance.</param>
@@ -143,6 +158,14 @@ namespace NetCheatX.Core
         /// <param name="max">Max value of progress.</param>
         /// <param name="description">Description of current progress.</param>
         public delegate void SetProgressCallback(Interfaces.IPluginBase pluginBase, int value, int max, string description);
+
+        /// <summary>
+        /// Callback function blueprint for clicked Context Menu items.
+        /// </summary>
+        /// <param name="host">UI application IPluginHost instance.</param>
+        /// <param name="tags">An array of tags indicating the purpose of the data.</param>
+        /// <param name="data">A list of dynamic arrays whose type is respective to the requested type (in index) and whose elements are determined by the source plugin.</param>
+        public delegate void ContextMenuPathTriggered(Interfaces.IPluginHost host, string[] tags, List<dynamic[]> data);
     }
 
     /// <summary>

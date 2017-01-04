@@ -99,7 +99,7 @@
             this.aboutNetCheatXToolStripMenuItem.Name = "aboutNetCheatXToolStripMenuItem";
             this.aboutNetCheatXToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.aboutNetCheatXToolStripMenuItem.Text = "About NetCheatX";
-            this.aboutNetCheatXToolStripMenuItem.Click += new System.EventHandler(this.aboutNetCheatXToolStripMenuItem_Click);
+            this.aboutNetCheatXToolStripMenuItem.Click += new System.EventHandler(this.AboutNetCheatXToolStripMenuItem_Click);
             // 
             // toolStrip
             // 

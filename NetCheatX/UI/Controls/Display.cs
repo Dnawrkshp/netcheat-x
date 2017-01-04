@@ -46,13 +46,13 @@ namespace NetCheatX.UI.Controls
         // Initialize added plugins
         private void Container_PluginAdded(object sender, Core.Types.PluginBaseChangedEventArgs e)
         {
-            e.Plugin.Initialize(_host);
+            e.plugin.Initialize(_host);
         }
 
         // Dispose removed plugins
         private void Container_PluginRemoved(object sender, Core.Types.PluginBaseChangedEventArgs e)
         {
-            e.Plugin.Dispose(_host);
+            e.plugin.Dispose(_host);
         }
 
         // Update Ready state
@@ -74,8 +74,6 @@ namespace NetCheatX.UI.Controls
             if (e.Callback == null || e.UniqueName == null || e.UniqueName == "" || e.ParentPlugin == null)
                 return;
 
-            if (e.ParentPlugin is ICodeEditor) // Add to /View/Code Editors/
-                AddMenuStripItem("View/Code Editors/" + e.Path, e);
             else if (e.ParentPlugin is IAddOn) // Add to /View/Add Ons
                 AddMenuStripItem("View/Add Ons/" + e.Path, e);
             else if (e.ParentPlugin is ICommunicator) // Add to /View/Communicator
@@ -128,8 +126,7 @@ namespace NetCheatX.UI.Controls
             parent.ToolTipText = windowItem.Description;
             parent.Click += (sender, e) =>
             {
-                Core.UI.XForm xform;
-                if (windowItem.Callback.Invoke(out xform, _host))
+                if (windowItem.Callback.Invoke(out Core.UI.XForm xform, _host))
                 {
                     if (xform != null)
                     {
@@ -185,8 +182,6 @@ namespace NetCheatX.UI.Controls
 
             _host.AddOns.PluginAdded += Container_PluginAdded;
             _host.AddOns.PluginRemoved += Container_PluginRemoved;
-            _host.CodeEditors.PluginAdded += Container_PluginAdded;
-            _host.CodeEditors.PluginRemoved += Container_PluginRemoved;
             _host.Communicators.PluginAdded += Container_PluginAdded;
             _host.Communicators.PluginRemoved += Container_PluginRemoved;
             _host.SearchMethods.PluginAdded += Container_PluginAdded;
@@ -209,8 +204,6 @@ namespace NetCheatX.UI.Controls
 
             foreach (IPluginBase p in _host.AddOns)
                 p.Initialize(_host);
-            foreach (IPluginBase p in _host.CodeEditors)
-                p.Initialize(_host);
             foreach (IPluginBase p in _host.SearchMethods)
                 p.Initialize(_host);
             foreach (IPluginBase p in _host.SearchTypes)
@@ -225,7 +218,7 @@ namespace NetCheatX.UI.Controls
             UpdateTextStatus(_host.ActiveCommunicator.Ready ? "Ready" : "Not Ready");
         }
 
-        private void aboutNetCheatXToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AboutNetCheatXToolStripMenuItem_Click(object sender, EventArgs e)
         {
             
         }
@@ -237,8 +230,6 @@ namespace NetCheatX.UI.Controls
 
             _host.AddOns.PluginAdded -= Container_PluginAdded;
             _host.AddOns.PluginRemoved -= Container_PluginRemoved;
-            _host.CodeEditors.PluginAdded -= Container_PluginAdded;
-            _host.CodeEditors.PluginRemoved -= Container_PluginRemoved;
             _host.Communicators.PluginAdded -= Container_PluginAdded;
             _host.Communicators.PluginRemoved -= Container_PluginRemoved;
             _host.SearchMethods.PluginAdded -= Container_PluginAdded;

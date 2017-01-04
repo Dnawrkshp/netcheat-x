@@ -38,14 +38,12 @@ namespace NetCheatX.UI.Plugin
 
         #region Inherited Properties
 
-        private PluginBaseContainer<ICodeEditor> _codeEditors = null;
         private PluginBaseContainer<ICommunicator> _communicators = null;
         private PluginBaseContainer<IAddOn> _addOns = null;
         private PluginBaseContainer<ITypeEditor> _typeEditors = null;
         private PluginBaseContainer<ISearchMethod> _searchMethods = null;
         private PluginBaseContainer<ISearchType> _searchTypes = null;
-
-        public PluginBaseContainer<ICodeEditor> CodeEditors { get { return _codeEditors; } }
+        
         public PluginBaseContainer<ICommunicator> Communicators { get { return _communicators; } }
         public PluginBaseContainer<IAddOn> AddOns { get { return _addOns; } }
         public PluginBaseContainer<ITypeEditor> TypeEditors { get { return _typeEditors; } }
@@ -57,6 +55,8 @@ namespace NetCheatX.UI.Plugin
 
         public KeyValueContainer<string, string> PlatformProperties { get { return _platformProperties; } }
         public KeyValueContainer<string, object> TempProperties { get { return _tempProperties; } }
+
+        public event NetCheatX.Core.Types.PluginFunctionCallback ConstantWrite;
 
         private ICommunicator _activeCommunicator = null;
         public ICommunicator ActiveCommunicator
@@ -77,7 +77,6 @@ namespace NetCheatX.UI.Plugin
 
         public PluginHost()
         {
-            _codeEditors = new PluginBaseContainer<ICodeEditor>();
             _communicators = new PluginBaseContainer<ICommunicator>();
             _addOns = new PluginBaseContainer<IAddOn>();
             _typeEditors = new PluginBaseContainer<ITypeEditor>();
@@ -111,8 +110,10 @@ namespace NetCheatX.UI.Plugin
             // Initialize constant write thread
             _constantWriteThreadHasReconnected = false;
             _exitConstantWriteThread = false;
-            _constantWriteThread = new System.Threading.Thread(new System.Threading.ThreadStart(ConstantWriteThreadStart));
-            _constantWriteThread.IsBackground = true;
+            _constantWriteThread = new System.Threading.Thread(new System.Threading.ThreadStart(ConstantWriteThreadStart))
+            {
+                IsBackground = true
+            };
             _constantWriteThread.Start();
         }
 
@@ -150,10 +151,6 @@ namespace NetCheatX.UI.Plugin
             }
 
             // Clean up all interface lists
-            for (x = 0; x < _codeEditors.Count; x++)
-                try { _codeEditors[x].Dispose(this); } catch (Exception e) { Program.logger.LogException(e); }
-            _codeEditors.Clear();
-
             for (x = 0; x < _communicators.Count; x++)
                 try { _communicators[x].Dispose(this); } catch (Exception e) { Program.logger.LogException(e); }
             _communicators.Clear();
@@ -212,9 +209,6 @@ namespace NetCheatX.UI.Plugin
         // Find any IPluginBase by its Base64String
         public IPluginBase FindIPluginBase(string base64String)
         {
-            foreach (IPluginBase item in _codeEditors)
-                if (item.ToBase64String() == base64String)
-                    return item;
             foreach (IPluginBase item in _addOns)
                 if (item.ToBase64String() == base64String)
                     return item;
@@ -263,7 +257,7 @@ namespace NetCheatX.UI.Plugin
             {
                 executed = false;
 
-                if (ActiveCommunicator == null || XForms == null || XForms.Count == 0)
+                if (ActiveCommunicator == null || XForms == null || XForms.Count == 0 || !ActiveCommunicator.Ready)
                 {
                     System.Threading.Thread.Sleep(1000);
                     continue;
@@ -286,12 +280,13 @@ namespace NetCheatX.UI.Plugin
                 {
                     try
                     {
-                        // If XForm was registered by an ICodeEditor constant execute it
-                        if (XForms[x] != null && XForms[x].ParentPlugin != null && XForms[x].ParentPlugin is ICodeEditor)
-                        {
-                            (XForms[x].ParentPlugin as ICodeEditor).ConstantExecute(this, XForms[x]);
-                            executed = true;
-                        }
+                        // Trigger constant write event
+                        if (ConstantWrite == null)
+                            break;
+                        else
+                            ConstantWrite.Invoke(this);
+
+                        executed = true;
                     }
                     catch (Exception e) { Program.logger.LogException(e); }
                 }

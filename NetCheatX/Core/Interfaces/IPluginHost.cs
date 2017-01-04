@@ -12,8 +12,6 @@ namespace NetCheatX.Core.Interfaces
     /// </summary>
     public interface IPluginHost
     {
-        /// <summary>List of registered of ICodeEditors</summary>
-        Containers.PluginBaseContainer<ICodeEditor> CodeEditors { get; }
         /// <summary>List of registered of ICommunicators</summary>
         Containers.PluginBaseContainer<ICommunicator> Communicators { get; }
         /// <summary>List of registered of IAddOns</summary>
@@ -39,6 +37,11 @@ namespace NetCheatX.Core.Interfaces
         /// Gets the current Communicator
         /// </summary>
         ICommunicator ActiveCommunicator { get; }
+
+        /// <summary>
+        /// Reserved for memory writing, this event is triggered frequently on a background thread.
+        /// </summary>
+        event Types.PluginFunctionCallback ConstantWrite;
 
         #region Log
 

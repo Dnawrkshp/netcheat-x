@@ -71,7 +71,7 @@ namespace NetCheatX.Core.Containers
                 {
                     _innerList[index] = value;
                     if (PluginAdded != null)
-                        PluginAdded.Invoke(this, new Core.Types.PluginBaseChangedEventArgs() { ParentPlugin = _parentPlugins[index], Plugin = value });
+                        PluginAdded.Invoke(this, new Core.Types.PluginBaseChangedEventArgs() { parentPlugin = _parentPlugins[index], plugin = value });
                 }
             }
         }
@@ -104,7 +104,7 @@ namespace NetCheatX.Core.Containers
             _parentPlugins.Add(parent);
 
             if (PluginAdded != null)
-                PluginAdded.Invoke(this, new Core.Types.PluginBaseChangedEventArgs() { ParentPlugin = parent, Plugin = item });
+                PluginAdded.Invoke(this, new Core.Types.PluginBaseChangedEventArgs() { parentPlugin = parent, plugin = item });
         }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace NetCheatX.Core.Containers
             while (_innerList.Count > 0)
             {
                 if (PluginRemoved != null)
-                    PluginRemoved.Invoke(this, new Core.Types.PluginBaseChangedEventArgs() { ParentPlugin = _parentPlugins[0], Plugin = _innerList[0] });
+                    PluginRemoved.Invoke(this, new Core.Types.PluginBaseChangedEventArgs() { parentPlugin = _parentPlugins[0], plugin = _innerList[0] });
 
                 _innerList.RemoveAt(0);
                 _parentPlugins.RemoveAt(0);
@@ -148,7 +148,7 @@ namespace NetCheatX.Core.Containers
         public bool Remove(T item)
         {
             if (_innerList.Contains(item) && PluginRemoved != null)
-                PluginRemoved.Invoke(this, new Core.Types.PluginBaseChangedEventArgs() { ParentPlugin = _parentPlugins[_innerList.IndexOf(item)], Plugin = item });
+                PluginRemoved.Invoke(this, new Core.Types.PluginBaseChangedEventArgs() { parentPlugin = _parentPlugins[_innerList.IndexOf(item)], plugin = item });
 
             _parentPlugins.RemoveAt(_innerList.IndexOf(item));
             return ((ICollection<T>)_innerList).Remove(item);

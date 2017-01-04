@@ -70,7 +70,6 @@ namespace NetCheatX.UI.Plugin
                         {
                             try
                             {
-
                                 // Create a new available plugin
                                 AvailablePlugin newPlugin = new AvailablePlugin();
 

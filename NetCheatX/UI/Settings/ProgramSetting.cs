@@ -19,6 +19,9 @@ namespace NetCheatX.UI.Settings
         [XmlElement("Run64Bit")]
         public bool Run64 { get; set; }
 
+        [XmlElement("LastCommunicator")]
+        public string LastCommunicator { get; set; }
+
         public static ProgramSetting Load(string path)
         {
             ProgramSetting con;
@@ -28,6 +31,7 @@ namespace NetCheatX.UI.Settings
                 XmlSerializer serializer = new XmlSerializer(typeof(ProgramSetting));
                 FileStream xmlFile = new FileStream(path, FileMode.Open);
                 con = (ProgramSetting)serializer.Deserialize(xmlFile);
+                xmlFile.Close();
 
                 con._path = path;
 

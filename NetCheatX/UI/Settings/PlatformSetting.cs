@@ -298,8 +298,6 @@ namespace NetCheatX.UI.Settings
 
                 if (ext is Core.Interfaces.IAddOn)
                     (ext as Core.Interfaces.IAddOn).InitializeXForm(out xForm, words[1]);
-                else if (ext is Core.Interfaces.ICodeEditor)
-                    (ext as Core.Interfaces.ICodeEditor).InitializeXForm(out xForm, words[1]);
                 else if (ext is Core.Interfaces.ICommunicator)
                     (ext as Core.Interfaces.ICommunicator).InitializeXForm(out xForm, words[1]);
                 else
